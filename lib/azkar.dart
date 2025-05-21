@@ -142,85 +142,90 @@ class _ZekrState extends State<Azkar> {
               const BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: 'settings'),
             ]),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 70, left: 85, right: 50),
-              child: MaterialButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  height: 50,
-                  minWidth: 200,
-                  onPressed: () {
-                    Navigator.pushNamed(context, "addzekr");
-                  },
-                  color: Colors.orange,
-                  child:
-                      const Text("Add Zekr", style: TextStyle(fontSize: 20))),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: azkar.length,
-                itemBuilder: (context, index) => InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                Homepage(zekr: azkar[index])));
-                  },
-                  child: Card(
-                      child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          azkar[index],
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        Row(children: [
-                          MaterialButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            height: 50,
-                            minWidth: 100,
-                            onPressed: () {
-                              setState(() {
-                                deleteZeker(index);
-                              });
-                            },
-                            color: Colors.orange,
-                            child: const Text("Delete"),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          MaterialButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            height: 50,
-                            minWidth: 100,
-                            onPressed: () {
-                              setState(() {
-                                resetCounter(index);
-                              });
-                            },
-                            color: Colors.orange,
-                            child: const Text("reset"),
-                          ),
-                        ]),
-                        Text("Count: ${counterMap[azkar[index]] ?? 0}")
-                      ],
+        body: Container(
+          color: Colors.grey[800],
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 70, left: 85, right: 50),
+                child: MaterialButton(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
                     ),
-                  )),
+                    height: 50,
+                    minWidth: 200,
+                    onPressed: () {
+                      Navigator.pushNamed(context, "addzekr");
+                    },
+                    color: Colors.orange,
+                    child:
+                        const Text("Add Zekr", style: TextStyle(fontSize: 20))),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: azkar.length,
+                  itemBuilder: (context, index) => InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Homepage(zekr: azkar[index])));
+                    },
+                    child: Card(
+                        elevation: 8.0,
+                        shadowColor: Colors.orange,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                azkar[index],
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Row(children: [
+                                MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  height: 50,
+                                  minWidth: 100,
+                                  onPressed: () {
+                                    setState(() {
+                                      deleteZeker(index);
+                                    });
+                                  },
+                                  color: Colors.orange,
+                                  child: const Text("Delete"),
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  height: 50,
+                                  minWidth: 100,
+                                  onPressed: () {
+                                    setState(() {
+                                      resetCounter(index);
+                                    });
+                                  },
+                                  color: Colors.orange,
+                                  child: const Text("reset"),
+                                ),
+                              ]),
+                              Text("Count: ${counterMap[azkar[index]] ?? 0}")
+                            ],
+                          ),
+                        )),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ));
   }
 }
