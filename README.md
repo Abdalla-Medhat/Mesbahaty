@@ -24,13 +24,13 @@ Data is saved even after closing the app using `SharedPreferences`.
 
 <p align="center">
   <!-- Add the first image here -->
-  <img src="assets/images/mesbahatey_icon.png" alt="Tasbih Counter" width="250" height = "500"/>
+  <img src="assets/images/Mesbahaty icon.png" alt="Tasbih Counter" width="250" height = "500"/>
   &nbsp;&nbsp;
   <!-- Add the second image here -->
-  <img src="assets/images/Screenshot 1.jpg" alt="App Interface" width="250" height = "500"/>
+  <img src="assets/images/Mesbahaty home page.png" alt="App Interface" width="250" height = "500"/>
   &nbsp;&nbsp;
   <!-- Add the third image here -->
-  <img src="assets/images/Screenshot 2.jpg" alt="App Interface" width="250" height = "500"/>
+  <img src="assets/images/Mesbahaty add Zekr page.png" alt="App Interface" width="250" height = "500"/>
 </p>
 
 ---
