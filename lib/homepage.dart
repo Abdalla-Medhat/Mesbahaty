@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:tasabeeh/sub folder/counter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -291,63 +290,3 @@ class _HomepageState extends State<Homepage> {
     }
   }
 }
-
-// Container(
-//                             decoration: BoxDecoration(color: Colors.grey[800]),
-//                             child: Column(
-//                               children: [
-//                                 Center(
-//                                   child: Container(
-//                                     width: 320,
-//                                     height: 192,
-//                                     margin: const EdgeInsets.only(top: 40),
-//                                     decoration: BoxDecoration(
-//                                       color: Colors.orange,
-//                                       borderRadius: BorderRadius.circular(20),
-//                                     ),
-//                                     child: Center(
-//                                       child: Padding(
-//                                         padding: const EdgeInsets.all(8.0),
-//                                         child: Text(
-//                                             widget.zekr ??
-//                                                 "You can add a zekr here from the Azkar page",
-//                                             style: const TextStyle(
-//                                                 overflow: TextOverflow.ellipsis,
-//                                                 fontSize: 17)),
-//                                       ),
-//                                     ),
-//                                   ),
-//                                 ),
-//                                 const SizedBox(
-//                                   height: 85,
-//                                 ),
-//                                 SizedBox(
-//                                   height: 290,
-//                                   width: 290,
-//                                   child: MaterialButton(
-//                                     shape: const CircleBorder(),
-//                                     color: Colors.orange,
-//                                     onPressed: () {
-//                                       setState(() {
-//                                         incrementCount();
-//                                       });
-//                                     },
-//                                     child: Center(
-//                                       child: FittedBox(
-//                                         fit: BoxFit.scaleDown,
-//                                         child: Text(
-//                                           "$count",
-//                                           style: TextStyle(
-//                                             fontSize:
-//                                                 200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
-//                                             color: Colors.grey[800],
-//                                             fontWeight: FontWeight.bold,
-//                                           ),
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ),
-//                                 ),
-//                               ],
-//                             ),
-//                           )

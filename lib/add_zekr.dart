@@ -68,8 +68,10 @@ class _AddZekrState extends State<AddZekr> {
                 await prefs.setString("counterMap", jsonEncode(counterMap));
 
                 // 6. نروح لصفحة الأذكار
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => const Azkar()));
+                if (context.mounted) {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => const Azkar()));
+                }
               },
               child: const Text("Submit"))
         ]),
