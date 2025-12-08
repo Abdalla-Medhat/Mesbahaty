@@ -9,8 +9,6 @@ class About extends StatefulWidget {
 }
 
 class _AboutState extends State<About> {
-  // final Uri _urlPaypal =
-  //     Uri.parse('https://www.paypal.com/paypalme/AbdallahMedhat99');
   final Uri repoUrl = Uri.parse('https://github.com/Abdalla-Medhat/Tasabeeh');
   Future<void> launchURL(Uri url) async {
     if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {

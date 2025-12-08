@@ -50,11 +50,6 @@ class _HomepageState extends State<Homepage> {
 
     // تحديث واجهة المستخدم
     setState(() {
-      // if (counterMap[widget.zekr] != null) {
-      //   count = counterMap[widget.zekr];
-      // } else {
-      //   count += 1;
-      // }
       if (widget.zekr != null) {
         count = counterMap[widget.zekr] ?? 0;
       } else {
