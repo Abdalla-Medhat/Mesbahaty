@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tasabeeh/homepage.dart';
 import 'dart:convert';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Azkar extends StatefulWidget {
-  final List<String>? zekr;
-  const Azkar({super.key, this.zekr});
+  // final List<String>? zekr;
+  const Azkar({super.key});
 
   @override
   State<Azkar> createState() => _ZekrState();
@@ -14,33 +15,42 @@ class Azkar extends StatefulWidget {
 class _ZekrState extends State<Azkar> {
   int index = 1;
   List<String> azkar = [];
+  bool isSet = false;
+
+  final formKey = GlobalKey<FormState>(); // formKey
+  TextEditingController setController =
+      TextEditingController(); // setController
+
+  late SharedPreferences prefs;
+  initAll() async {
+    prefs = await SharedPreferences.getInstance();
+    loadingZekr(); // تحميل الأذكار
+    loadCounterData(); // تحميل العدادات من SharedPreferences
+  }
 
   Future<void> loadingZekr() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> storedData = prefs.getStringList("zekr") ?? [];
 
-    if (widget.zekr != null && widget.zekr!.isNotEmpty) {
-      storedData.addAll(widget.zekr!);
-      await prefs.setStringList("zekr", storedData);
-    }
+    // if (widget.zekr != null && widget.zekr!.isNotEmpty) {
+    //   storedData.addAll(widget.zekr!);
+    //   await prefs.setStringList("zekr", storedData);
+    // }
     setState(() {
       azkar = storedData;
     });
   }
 
-//خريطة تخزن عدد التكرارات لكل ذِكر.
-  Map<String, dynamic> counterMap = {};
-
   @override
   void initState() {
     super.initState();
-    loadingZekr(); // تحميل الأذكار
-    loadCounterData(); // تحميل العدادات من SharedPreferences
+    initAll();
   }
+
+//خريطة تخزن عدد التكرارات لكل ذِكر.
+  Map<String, dynamic> counterMap = {};
 
   // دالة تسترجع البيانات المخزنة من SharedPreferences وتحولها إلى خريطة.
   Future<void> loadCounterData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     String? counterData = prefs.getString("counterMap");
     if (counterData != null) {
       setState(() {
@@ -51,8 +61,6 @@ class _ZekrState extends State<Azkar> {
   }
 
   Future<void> resetCounter(int index) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
     // حدد الذكر اللي هيتم تصفير عداده
     String zekr = azkar[index];
 
@@ -65,7 +73,6 @@ class _ZekrState extends State<Azkar> {
   }
 
   Future<void> deleteZeker(int index) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     String removedZekr = azkar[index];
 
     setState(() {
@@ -76,6 +83,8 @@ class _ZekrState extends State<Azkar> {
     await prefs.setStringList("zekr", azkar);
     await prefs.setString("counterMap", jsonEncode(counterMap));
   }
+
+  SetCounter(String val) {}
 
   @override
   Widget build(BuildContext context) {
@@ -214,10 +223,122 @@ class _ZekrState extends State<Azkar> {
                                     });
                                   },
                                   color: Colors.orange,
-                                  child: const Text("reset"),
+                                  child: const Text("Reset"),
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
+                                // isSet == true
+                                //     ?
+                                MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  height: 50,
+                                  minWidth: 100,
+                                  onPressed: () {
+                                    setController.text =
+                                        counterMap[azkar[index]].toString();
+                                    AwesomeDialog(
+                                      context: context,
+                                      customHeader: Container(
+                                        alignment: Alignment.center,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.9,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.9,
+                                        decoration: BoxDecoration(
+                                          color: Colors.orange,
+                                          borderRadius:
+                                              BorderRadius.circular(70),
+                                        ),
+                                        child: Center(
+                                          child: Icon(
+                                            Icons.info,
+                                            size: MediaQuery.of(context)
+                                                    .size
+                                                    .height *
+                                                0.15,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      // dialogType: DialogType.info,
+                                      // animType: AnimType.bottomSlide,
+                                      isDense: false,
+                                      title: 'Set Count',
+                                      body: Row(
+                                        children: [
+                                          const Icon(Icons.edit_note, size: 30),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.6,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10),
+                                              child: Form(
+                                                key: formKey,
+                                                child: TextFormField(
+                                                  controller: setController,
+                                                  validator: (value) {
+                                                    if (value == null ||
+                                                        value.isEmpty) {
+                                                      return 'Please Set a number';
+                                                    } else if (int.tryParse(
+                                                            value) ==
+                                                        null) {
+                                                      return 'Please Set a number';
+                                                    } else if (int.tryParse(
+                                                            value)! <
+                                                        1) {
+                                                      return 'Please Set a number more than 0';
+                                                    } else {
+                                                      return null;
+                                                    }
+                                                  },
+                                                  decoration: InputDecoration(
+                                                    filled: true,
+                                                    fillColor: Colors.grey[300],
+                                                    enabledBorder:
+                                                        const OutlineInputBorder(
+                                                            borderSide:
+                                                                BorderSide
+                                                                    .none),
+                                                    border: OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    hintText: "Count",
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      btnOkText: "Save",
+                                      btnOkColor: Colors.orange,
+                                      btnOkOnPress: () {
+                                        if (formKey.currentState!.validate()) {
+                                          setState(() {
+                                            counterMap[azkar[index]] =
+                                                int.parse(setController.text);
+                                            prefs.setString("counterMap",
+                                                jsonEncode(counterMap));
+                                          });
+                                        }
+                                      },
+                                    ).show();
+                                  },
+                                  color: Colors.orange,
+                                  child: const Text("Set"),
                                 ),
                               ]),
-                              Text("Count: ${counterMap[azkar[index]] ?? 0}")
+                              Text("Count: ${counterMap[azkar[index]] ?? 0}"),
                             ],
                           ),
                         )),

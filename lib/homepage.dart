@@ -14,7 +14,7 @@ class _HomepageState extends State<Homepage> {
   bool islinked = false;
   int index = 0;
   int count = 0;
-  bool? status;
+  bool? status; // هذا يحدد اذا كان خيار الضغط علي الصفحة كلها مفعل لزيداة الذكر
 
   Future<void> getStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
