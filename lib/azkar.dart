@@ -245,26 +245,25 @@ class _ZekrState extends State<Azkar> {
                                         alignment: Alignment.center,
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.9,
+                                                0.8,
                                         height:
                                             MediaQuery.of(context).size.height *
-                                                0.9,
+                                                0.8,
                                         decoration: BoxDecoration(
                                           color: Colors.orange,
                                           borderRadius:
                                               BorderRadius.circular(70),
                                         ),
-                                        child: Center(
+                                        child: const FittedBox(
+                                          fit: BoxFit.scaleDown,
                                           child: Icon(
                                             Icons.info,
-                                            size: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.15,
+                                            size: 300,
                                             color: Colors.white,
                                           ),
                                         ),
                                       ),
+
                                       // dialogType: DialogType.info,
                                       // animType: AnimType.bottomSlide,
                                       isDense: false,
