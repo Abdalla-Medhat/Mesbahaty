@@ -181,166 +181,217 @@ class _ZekrState extends State<Azkar> {
                               builder: (context) =>
                                   Homepage(zekr: azkar[index])));
                     },
-                    child: Card(
-                        elevation: 8.0,
-                        shadowColor: Colors.orange,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                azkar[index],
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Row(children: [
-                                MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  height: 50,
-                                  minWidth: 100,
-                                  onPressed: () {
-                                    setState(() {
-                                      deleteZeker(index);
-                                    });
-                                  },
-                                  color: Colors.orange,
-                                  child: const Text("Delete"),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  height: 50,
-                                  minWidth: 100,
-                                  onPressed: () {
-                                    setState(() {
-                                      resetCounter(index);
-                                    });
-                                  },
-                                  color: Colors.orange,
-                                  child: const Text("Reset"),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                // isSet == true
-                                //     ?
-                                MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  height: 50,
-                                  minWidth: 100,
-                                  onPressed: () {
-                                    setController.text =
-                                        counterMap[azkar[index]].toString();
-                                    AwesomeDialog(
-                                      context: context,
-                                      customHeader: Container(
-                                        alignment: Alignment.center,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.8,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.8,
-                                        decoration: BoxDecoration(
-                                          color: Colors.orange,
-                                          borderRadius:
-                                              BorderRadius.circular(70),
-                                        ),
-                                        child: const FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: Icon(
-                                            Icons.info,
-                                            size: 300,
-                                            color: Colors.white,
-                                          ),
-                                        ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.22,
+                        child: Card(
+                            elevation: 8.0,
+                            shadowColor: Colors.orange,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                // mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Text(
+                                        textAlign: TextAlign.start,
+                                        textDirection: TextDirection.ltr,
+                                        style: const TextStyle(),
+                                        azkar[index],
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-
-                                      // dialogType: DialogType.info,
-                                      // animType: AnimType.bottomSlide,
-                                      isDense: false,
-                                      title: 'Set Count',
-                                      body: Row(
-                                        children: [
-                                          const Icon(Icons.edit_note, size: 30),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.6,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10),
-                                              child: Form(
-                                                key: formKey,
-                                                child: TextFormField(
-                                                  controller: setController,
-                                                  validator: (value) {
-                                                    if (value == null ||
-                                                        value.isEmpty) {
-                                                      return 'Please Set a number';
-                                                    } else if (int.tryParse(
-                                                            value) ==
-                                                        null) {
-                                                      return 'Please Set a number';
-                                                    } else if (int.tryParse(
-                                                            value)! <
-                                                        1) {
-                                                      return 'Please Set a number more than 0';
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                  decoration: InputDecoration(
-                                                    filled: true,
-                                                    fillColor: Colors.grey[300],
-                                                    enabledBorder:
-                                                        const OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide
-                                                                    .none),
-                                                    border: OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    hintText: "Count",
+                                    ),
+                                  ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(children: [
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            backgroundColor: Colors.orange,
+                                            minimumSize: const Size(65, 40),
+                                            maximumSize: const Size(100, 50),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              deleteZeker(index);
+                                            });
+                                          },
+                                          child: const Text("Delete"),
+                                        ),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            backgroundColor: Colors.orange,
+                                            minimumSize: const Size(65, 40),
+                                            maximumSize: const Size(100, 50),
+                                          ),
+                                          onPressed: () {
+                                            setState(() {
+                                              resetCounter(index);
+                                            });
+                                          },
+                                          child: const Text("Reset"),
+                                        ),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        // isSet == true
+                                        //     ?
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            backgroundColor: Colors.orange,
+                                            minimumSize: const Size(65, 40),
+                                            maximumSize: const Size(100, 50),
+                                          ),
+                                          onPressed: () {
+                                            setController.text =
+                                                counterMap[azkar[index]]
+                                                    .toString();
+                                            AwesomeDialog(
+                                              context: context,
+                                              customHeader: Container(
+                                                alignment: Alignment.center,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.8,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.8,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.orange,
+                                                  borderRadius:
+                                                      BorderRadius.circular(70),
+                                                ),
+                                                child: const FittedBox(
+                                                  fit: BoxFit.scaleDown,
+                                                  child: Icon(
+                                                    Icons.info,
+                                                    size: 300,
+                                                    color: Colors.white,
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        ],
+
+                                              // dialogType: DialogType.info,
+                                              // animType: AnimType.bottomSlide,
+                                              isDense: false,
+                                              title: 'Set Count',
+                                              body: Row(
+                                                children: [
+                                                  const Icon(Icons.edit_note,
+                                                      size: 30),
+                                                  SizedBox(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.6,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 10),
+                                                      child: Form(
+                                                        key: formKey,
+                                                        child: TextFormField(
+                                                          controller:
+                                                              setController,
+                                                          validator: (value) {
+                                                            if (value == null ||
+                                                                value.isEmpty) {
+                                                              return 'Please Set a number';
+                                                            } else if (int
+                                                                    .tryParse(
+                                                                        value) ==
+                                                                null) {
+                                                              return 'Please Set a number';
+                                                            } else if (int
+                                                                    .tryParse(
+                                                                        value)! <
+                                                                1) {
+                                                              return 'Please Set a number more than 0';
+                                                            } else {
+                                                              return null;
+                                                            }
+                                                          },
+                                                          decoration:
+                                                              InputDecoration(
+                                                            filled: true,
+                                                            fillColor: Colors
+                                                                .grey[300],
+                                                            enabledBorder:
+                                                                const OutlineInputBorder(
+                                                                    borderSide:
+                                                                        BorderSide
+                                                                            .none),
+                                                            border: OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10)),
+                                                            hintText: "Count",
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              btnOkText: "Save",
+                                              btnOkColor: Colors.orange,
+                                              btnOkOnPress: () {
+                                                if (formKey.currentState!
+                                                    .validate()) {
+                                                  setState(() {
+                                                    counterMap[azkar[index]] =
+                                                        int.parse(
+                                                            setController.text);
+                                                    prefs.setString(
+                                                        "counterMap",
+                                                        jsonEncode(counterMap));
+                                                  });
+                                                }
+                                              },
+                                            ).show();
+                                          },
+                                          child: const Text("Set"),
+                                        ),
+                                      ]),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            bottom: 1, top: 5),
+                                        child: Text(
+                                            "Count: ${counterMap[azkar[index]] ?? 0}"),
                                       ),
-                                      btnOkText: "Save",
-                                      btnOkColor: Colors.orange,
-                                      btnOkOnPress: () {
-                                        if (formKey.currentState!.validate()) {
-                                          setState(() {
-                                            counterMap[azkar[index]] =
-                                                int.parse(setController.text);
-                                            prefs.setString("counterMap",
-                                                jsonEncode(counterMap));
-                                          });
-                                        }
-                                      },
-                                    ).show();
-                                  },
-                                  color: Colors.orange,
-                                  child: const Text("Set"),
-                                ),
-                              ]),
-                              Text("Count: ${counterMap[azkar[index]] ?? 0}"),
-                            ],
-                          ),
-                        )),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )),
+                      ),
+                    ),
                   ),
                 ),
               ),
