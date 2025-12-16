@@ -14,18 +14,24 @@ class _HomepageState extends State<Homepage> {
   bool islinked = false;
   int index = 0;
   int count = 0;
-  bool? status; // هذا يحدد اذا كان خيار الضغط علي الصفحة كلها مفعل لزيداة الذكر
+  // هذا يحدد اذا كان خيار الضغط علي الصفحة كلها مفعل لزيداة الذكر
+  bool? clickablePage;
 
-  Future<void> getStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  late SharedPreferences prefs;
+  initAll() async {
+    prefs = await SharedPreferences.getInstance();
+    getclickablePage();
+    loadCounterData();
+  }
+
+  Future<void> getclickablePage() async {
     return setState(() {
-      status = prefs.getBool("status") ?? false;
+      clickablePage = prefs.getBool("status") ?? false;
     });
   }
 
   // دالة لتحميل العدّاد من SharedPreferences
   Future<void> loadCounterData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     String? counterData = prefs.getString("counterMap");
     Map<String, dynamic> counterMap =
         counterData != null ? jsonDecode(counterData) : {};
@@ -37,7 +43,6 @@ class _HomepageState extends State<Homepage> {
 
   // دالة لزيادة العدّاد وحفظه في SharedPreferences
   Future<void> incrementCount() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     String? counterData = prefs.getString("counterMap");
     Map<String, dynamic> counterMap =
         counterData != null ? jsonDecode(counterData) : {};
@@ -61,12 +66,12 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
-    loadCounterData();
-    getStatus(); // تحميل العدّاد عند بدء التطبيق
+    initAll();
   }
 
   @override
   Widget build(BuildContext context) {
+    orientation = MediaQuery.of(context).orientation;
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: index,
@@ -133,7 +138,7 @@ class _HomepageState extends State<Homepage> {
         body: Column(
           children: [
             Expanded(
-              child: status == null
+              child: clickablePage == null
                   ? const Center(
                       child: CircularProgressIndicator(color: Colors.orange))
                   : mainContent(),
@@ -142,95 +147,165 @@ class _HomepageState extends State<Homepage> {
         ));
   }
 
+  late Orientation? orientation;
   Widget mainContent() {
-    if (status == true) {
-      return InkWell(
-        onTap: () {
-          incrementCount();
-        },
-        child: Container(
-          decoration: BoxDecoration(color: Colors.grey[800]),
-          child: Column(
-            children: [
-              Center(
-                child: Container(
-                  width: 320,
-                  height: 192,
-                  margin: const EdgeInsets.only(top: 40),
-                  decoration: BoxDecoration(
-                    color: Colors.orange,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 25,
+    if (clickablePage == true) {
+      if (orientation == Orientation.portrait) {
+        return InkWell(
+            onTap: () {
+              incrementCount();
+            },
+            child: ListView(children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.25,
+                      margin: const EdgeInsets.only(top: 40),
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Text(
-                          widget.zekr ??
-                              "You can add a zekr here from the Azkar page",
-                          style: const TextStyle(fontSize: 17),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 5,
+                      child: Column(mainAxisSize: MainAxisSize.min, children: [
+                        const SizedBox(
+                          height: 25,
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Text(
+                            widget.zekr ??
+                                "You can add a zekr here from the Azkar page",
+                            style: const TextStyle(fontSize: 17),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                          ),
+                        ),
+                      ]),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 85,
-              ),
-              Expanded(
-                child: SizedBox(
-                  height: 290,
-                  width: 290,
-                  child: MaterialButton(
-                    shape: const CircleBorder(),
-                    color: Colors.orange,
-                    onPressed: () {
-                      setState(() {
-                        incrementCount();
-                      });
-                    },
-                    child: Center(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          "$count",
-                          style: TextStyle(
-                            fontSize:
-                                200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
-                            color: Colors.grey[800],
-                            fontWeight: FontWeight.bold,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                  ),
+                  Flexible(
+                    child: SizedBox(
+                      // height: MediaQuery.of(context).size.height * 0.9
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: MaterialButton(
+                        shape: const CircleBorder(),
+                        color: Colors.orange,
+                        onPressed: () {
+                          setState(() {
+                            incrementCount();
+                          });
+                        },
+                        child: Center(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "$count",
+                              style: TextStyle(
+                                fontSize:
+                                    200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                                color: Colors.grey[800],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
-        ),
-      );
+            ]));
+      } else {
+        return InkWell(
+            onTap: () {
+              incrementCount();
+            },
+            child: ListView(children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Center(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      height: MediaQuery.of(context).size.height * 0.25,
+                      margin: const EdgeInsets.only(top: 40),
+                      decoration: BoxDecoration(
+                        color: Colors.orange,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Column(mainAxisSize: MainAxisSize.min, children: [
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Text(
+                            widget.zekr ??
+                                "You can add a zekr here from the Azkar page",
+                            style: const TextStyle(fontSize: 17),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                          ),
+                        ),
+                      ]),
+                    ),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.1,
+                  ),
+                  Flexible(
+                    child: SizedBox(
+                      // height: MediaQuery.of(context).size.height * 0.9
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: MaterialButton(
+                        shape: const CircleBorder(),
+                        color: Colors.orange,
+                        onPressed: () {
+                          setState(() {
+                            incrementCount();
+                          });
+                        },
+                        child: Center(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "$count",
+                              style: TextStyle(
+                                fontSize:
+                                    200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                                color: Colors.grey[800],
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ]));
+      }
     } else {
-      return Container(
-        decoration: BoxDecoration(color: Colors.grey[800]),
-        child: Column(
+      if (orientation == Orientation.portrait) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Center(
               child: Container(
-                width: 320,
-                height: 192,
+                width: MediaQuery.of(context).size.width * 0.9,
+                height: MediaQuery.of(context).size.height * 0.25,
                 margin: const EdgeInsets.only(top: 40),
                 decoration: BoxDecoration(
                   color: Colors.orange,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Column(children: [
+                child: Column(mainAxisSize: MainAxisSize.min, children: [
                   const SizedBox(
                     height: 25,
                   ),
@@ -247,13 +322,13 @@ class _HomepageState extends State<Homepage> {
                 ]),
               ),
             ),
-            const SizedBox(
-              height: 85,
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.1,
             ),
-            Expanded(
+            Flexible(
               child: SizedBox(
-                height: 290,
-                width: 290,
+                // height: MediaQuery.of(context).size.height * 0.9
+                width: MediaQuery.of(context).size.width * 0.8,
                 child: MaterialButton(
                   shape: const CircleBorder(),
                   color: Colors.orange,
@@ -280,8 +355,77 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
           ],
-        ),
-      );
+        );
+      } else {
+        return ListView(children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.4,
+                  margin: const EdgeInsets.only(top: 40),
+                  decoration: BoxDecoration(
+                    color: Colors.orange,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(mainAxisSize: MainAxisSize.min, children: [
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Text(
+                        widget.zekr ??
+                            "You can add a zekr here from the Azkar page",
+                        style: const TextStyle(fontSize: 17),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                      ),
+                    ),
+                  ]),
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.1,
+              ),
+              Flexible(
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: MaterialButton(
+                    shape: const CircleBorder(),
+                    color: Colors.orange,
+                    onPressed: () {
+                      setState(() {
+                        incrementCount();
+                      });
+                    },
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "$count",
+                          style: TextStyle(
+                            fontSize:
+                                200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        ]);
+      }
     }
   }
 }
