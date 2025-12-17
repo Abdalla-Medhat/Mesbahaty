@@ -22,16 +22,16 @@ class _AboutState extends State<About> {
       appBar: AppBar(
         title: const Text("About us"),
       ),
-      body: Column(
-        children: [
-          Container(
-              margin: const EdgeInsets.all(10),
-              height: 415,
-              width: 370,
-              child: const Card(
-                  child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text("""About the Developer
+      body: ListView(children: [
+        Column(
+          children: [
+            Container(
+                margin: const EdgeInsets.all(10),
+                child: const Card(
+                    child: Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text("""
+About the Developer
           
 I’m a passionate developer who believes that technology can be a powerful tool to enhance spirituality and bring us closer to Allah in a modern way.
           
@@ -39,37 +39,41 @@ With that vision in mind, I created this app to be your daily companion for Tasb
           
 I'm always striving to deliver digital experiences that blend benefit with ease, and I welcome any suggestions that help improve and grow this app.
           
-          — Abdullah Medhat"""),
-              ))),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-              margin: const EdgeInsets.all(10),
-              height: 100,
-              width: 370,
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                          """You can also check out the source code, contribute, or explore how the app was built:"""),
-                      InkWell(
-                          onTap: () => launchURL(repoUrl),
-                          child: const Text("View on GitHub",
-                              style: TextStyle(
-                                color: Colors.orange,
-                                fontSize: 15,
-                              ),
-                              textAlign: TextAlign.left))
-                    ],
+— Abdullah Medhat"""),
+                ))),
+            const SizedBox(
+              height: 10,
+            ),
+            Container(
+                margin: const EdgeInsets.only(
+                    top: 15, left: 10, right: 10, bottom: 20),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                            """You can also check out the source code, contribute, or explore how the app was built:"""),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                              onTap: () => launchURL(repoUrl),
+                              child: const Text("View on GitHub",
+                                  style: TextStyle(
+                                    color: Colors.orange,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                  ),
+                                  textAlign: TextAlign.left)),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              )),
-        ],
-      ),
+                )),
+          ],
+        ),
+      ]),
     );
   }
 }

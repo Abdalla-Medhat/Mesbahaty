@@ -23,42 +23,45 @@ class _SupportState extends State<Support> {
       appBar: AppBar(
         title: const Text("Support us"),
       ),
-      body: Column(
-        children: [
-          Container(
-              margin: const EdgeInsets.all(10),
-              height: 335,
-              width: 370,
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                          """If you find this app helpful and would like to support its continued development, you can do so through PayPal or any other future support method I may provide.
-                
+      body: ListView(children: [
+        Column(
+          children: [
+            Container(
+                margin: const EdgeInsets.all(10),
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text("""
+If you find this app helpful and would like to support its continued development, you can do so through PayPal or any other future support method I may provide.
+       
 Your contribution — no matter how small — helps me stay motivated and keep delivering meaningful tools that blend technology with spiritual benefit.
                 
 Thank you for your kindness and support:
-"""),
-                      InkWell(
-                          onTap: () => launchURL(_paypalUrl),
-                          child: Text(
-                            "Support me on PayPal",
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.orange,
-                                decoration: TextDecoration.underline,
-                                decorationColor: Colors.orange[600],
-                                fontWeight: FontWeight.bold),
-                          )),
-                    ],
+      """),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: InkWell(
+                              onTap: () => launchURL(_paypalUrl),
+                              child: Text(
+                                "Support me on PayPal",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.orange,
+                                    decoration: TextDecoration.underline,
+                                    decorationColor: Colors.orange[600],
+                                    fontWeight: FontWeight.bold),
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              )),
-        ],
-      ),
+                ))
+          ],
+        ),
+      ]),
     );
   }
 }
