@@ -34,6 +34,7 @@ class _SettingsState extends State<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: index,
@@ -95,82 +96,162 @@ class _SettingsState extends State<Settings> {
               const BottomNavigationBarItem(
                   icon: Icon(Icons.settings), label: 'settings'),
             ]),
-        body: Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(color: Colors.grey[800]),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 100,
-                ),
-                Card(
-                  elevation: 10,
-                  shadowColor: Colors.orange[900],
-                  margin: const EdgeInsets.all(10),
-                  child: ListTile(
-                    trailing: Switch(
-                        activeColor: Colors.orange,
-                        activeTrackColor: Colors.grey[700],
-                        value: status,
-                        onChanged: (value) {
+        body: orientation == Orientation.portrait
+            ? Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height,
+                decoration: BoxDecoration(color: Colors.grey[800]),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.09,
+                    ),
+                    Card(
+                      elevation: 10,
+                      shadowColor: Colors.orange[900],
+                      margin: const EdgeInsets.all(10),
+                      child: ListTile(
+                        trailing: Switch(
+                            activeColor: Colors.orange,
+                            activeTrackColor: Colors.grey[700],
+                            value: status,
+                            onChanged: (value) {
+                              setState(() {
+                                status = value;
+                                saveStatus();
+                              });
+                            }),
+                        onTap: () {
                           setState(() {
-                            status = value;
+                            status = !status;
                             saveStatus();
                           });
-                        }),
-                    onTap: () {
-                      setState(() {
-                        status = !status;
-                        saveStatus();
-                      });
-                    },
-                    title: Text(
-                      "Tap the screen\nto increase the count.",
-                      style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800]),
+                        },
+                        title: Text(
+                          "Tap the screen\nto increase the count.",
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[800]),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Card(
-                  elevation: 10.0,
-                  shadowColor: Colors.orange[900],
-                  margin: const EdgeInsets.all(10),
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.pushNamed(context, "about");
-                    },
-                    title: Text(
-                      "About us",
-                      style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800]),
+                    Card(
+                      elevation: 10.0,
+                      shadowColor: Colors.orange[900],
+                      margin: const EdgeInsets.all(10),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, "about");
+                        },
+                        title: Text(
+                          "About us",
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[800]),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Card(
-                  elevation: 10.0,
-                  shadowColor: Colors.orange[900],
-                  margin: const EdgeInsets.all(10),
-                  child: ListTile(
-                    onTap: () {
-                      Navigator.pushNamed(context, "support");
-                    },
-                    title: Text(
-                      "Support us",
-                      style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[800]),
+                    Card(
+                      elevation: 10.0,
+                      shadowColor: Colors.orange[900],
+                      margin: const EdgeInsets.all(10),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, "support");
+                        },
+                        title: Text(
+                          "Support us",
+                          style: TextStyle(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[800]),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ],
-            )));
+                  ],
+                ))
+            : ListView(children: [
+                Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height,
+                    decoration: BoxDecoration(color: Colors.grey[800]),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.04,
+                        ),
+                        Card(
+                          elevation: 10,
+                          shadowColor: Colors.orange[900],
+                          margin: const EdgeInsets.all(10),
+                          child: ListTile(
+                            trailing: Switch(
+                                activeColor: Colors.orange,
+                                activeTrackColor: Colors.grey[700],
+                                value: status,
+                                onChanged: (value) {
+                                  setState(() {
+                                    status = value;
+                                    saveStatus();
+                                  });
+                                }),
+                            onTap: () {
+                              setState(() {
+                                status = !status;
+                                saveStatus();
+                              });
+                            },
+                            title: Text(
+                              "Tap the screen\nto increase the count.",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[800]),
+                            ),
+                          ),
+                        ),
+                        Card(
+                          elevation: 10.0,
+                          shadowColor: Colors.orange[900],
+                          margin: const EdgeInsets.all(10),
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.pushNamed(context, "about");
+                            },
+                            title: Text(
+                              "About us",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[800]),
+                            ),
+                          ),
+                        ),
+                        Card(
+                          elevation: 10.0,
+                          shadowColor: Colors.orange[900],
+                          margin: const EdgeInsets.all(10),
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.pushNamed(context, "support");
+                            },
+                            title: Text(
+                              "Support us",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[800]),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+              ]));
   }
 }
