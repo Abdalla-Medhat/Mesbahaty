@@ -190,7 +190,6 @@ class _HomepageState extends State<Homepage> {
                   ),
                   Flexible(
                     child: SizedBox(
-                      // height: MediaQuery.of(context).size.height * 0.9
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: MaterialButton(
                         shape: const CircleBorder(),
@@ -260,7 +259,6 @@ class _HomepageState extends State<Homepage> {
                   ),
                   Flexible(
                     child: SizedBox(
-                      // height: MediaQuery.of(context).size.height * 0.9
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: MaterialButton(
                         shape: const CircleBorder(),
@@ -327,7 +325,6 @@ class _HomepageState extends State<Homepage> {
             ),
             Flexible(
               child: SizedBox(
-                // height: MediaQuery.of(context).size.height * 0.9
                 width: MediaQuery.of(context).size.width * 0.8,
                 child: MaterialButton(
                   shape: const CircleBorder(),
@@ -343,8 +340,7 @@ class _HomepageState extends State<Homepage> {
                       child: Text(
                         "$count",
                         style: TextStyle(
-                          fontSize:
-                              200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                          fontSize: 200,
                           color: Colors.grey[800],
                           fontWeight: FontWeight.bold,
                         ),
