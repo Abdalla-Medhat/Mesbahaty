@@ -169,9 +169,14 @@ class _HomepageState extends State<Homepage> {
                       height: MediaQuery.of(context).size.height * 0.25,
                       margin: const EdgeInsets.only(top: 40),
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF4A300),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                          color: const Color(0xFFF4A300),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color(0xFFF4A300).withAlpha(125),
+                                blurRadius: 25,
+                                spreadRadius: 1.5)
+                          ]),
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
                         const SizedBox(
                           height: 25,
@@ -405,8 +410,7 @@ class _HomepageState extends State<Homepage> {
                         child: Text(
                           "$count",
                           style: TextStyle(
-                            fontSize:
-                                200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                            fontSize: 200,
                             color: Colors.grey[800],
                             fontWeight: FontWeight.bold,
                           ),
