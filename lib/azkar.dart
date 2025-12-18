@@ -79,7 +79,7 @@ class _ZekrState extends State<Azkar> {
     await prefs.setString("counterMap", jsonEncode(counterMap));
   }
 
-  SetCounter(String val) {}
+  setCounter(String val) {}
 
   @override
   Widget build(BuildContext context) {
@@ -152,382 +152,364 @@ class _ZekrState extends State<Azkar> {
                   const BottomNavigationBarItem(
                       icon: Icon(Icons.settings), label: 'settings'),
                 ]),
-            body: Container(
-              color: Colors.grey[800],
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 70, left: 85, right: 50, bottom: 10),
-                    child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        height: 50,
-                        minWidth: 200,
-                        onPressed: () {
-                          Navigator.pushNamed(context, "addzekr");
-                        },
-                        color: Colors.orange,
-                        child: const Text("Add Zekr",
-                            style: TextStyle(fontSize: 20))),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: azkar.length,
-                      itemBuilder: (context, index) => InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      Homepage(zekr: azkar[index])));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.22,
-                            child: Card(
-                                elevation: 8.0,
-                                shadowColor: Colors.orange,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Align(
-                                          alignment: Alignment.topCenter,
-                                          child: Text(
-                                            textAlign: TextAlign.start,
-                                            textDirection: TextDirection.ltr,
-                                            style: const TextStyle(),
-                                            azkar[index],
-                                            maxLines: 3,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
+            body: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 70, left: 85, right: 50, bottom: 10),
+                  child: MaterialButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      height: 50,
+                      minWidth: 200,
+                      onPressed: () {
+                        Navigator.pushNamed(context, "addzekr");
+                      },
+                      color: Colors.orange,
+                      child: const Text("Add Zekr",
+                          style: TextStyle(fontSize: 20))),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: azkar.length,
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Homepage(zekr: azkar[index])));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.22,
+                          child: Card(
+                              elevation: 8.0,
+                              shadowColor: Colors.orange,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment.topCenter,
+                                        child: Text(
+                                          textAlign: TextAlign.start,
+                                          textDirection: TextDirection.ltr,
+                                          style: const TextStyle(),
+                                          azkar[index],
+                                          maxLines: 3,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            child: Row(children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 4),
-                                                child: ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                    elevation: 6.0,
-                                                    foregroundColor:
-                                                        const Color.fromARGB(
-                                                            255, 66, 66, 66),
-                                                    shadowColor: Colors.orange,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                    ),
-                                                    backgroundColor:
-                                                        Colors.orange,
-                                                    minimumSize:
-                                                        const Size(45, 40),
-                                                    maximumSize:
-                                                        const Size(90, 50),
+                                    ),
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          child: Row(children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 4),
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      deleteZeker(index);
-                                                    });
-                                                  },
-                                                  child: const FittedBox(
-                                                      child: Text("Delete")),
+                                                  elevation: 6.0,
+                                                  foregroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 66, 66, 66),
+                                                  shadowColor: Colors.orange,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  backgroundColor:
+                                                      Colors.orange,
+                                                  minimumSize:
+                                                      const Size(45, 40),
+                                                  maximumSize:
+                                                      const Size(90, 50),
                                                 ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    deleteZeker(index);
+                                                  });
+                                                },
+                                                child: const FittedBox(
+                                                    child: Text("Delete")),
                                               ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 4),
-                                                child: ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                    elevation: 6.0,
-                                                    foregroundColor:
-                                                        const Color.fromARGB(
-                                                            255, 66, 66, 66),
-                                                    shadowColor: Colors.orange,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                    ),
-                                                    backgroundColor:
-                                                        Colors.orange,
-                                                    minimumSize:
-                                                        const Size(45, 40),
-                                                    maximumSize:
-                                                        const Size(90, 50),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 4),
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      resetCounter(index);
-                                                    });
-                                                  },
-                                                  child: const FittedBox(
-                                                      child: Text("Reset")),
+                                                  elevation: 6.0,
+                                                  foregroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 66, 66, 66),
+                                                  shadowColor: Colors.orange,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  backgroundColor:
+                                                      Colors.orange,
+                                                  minimumSize:
+                                                      const Size(45, 40),
+                                                  maximumSize:
+                                                      const Size(90, 50),
                                                 ),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    resetCounter(index);
+                                                  });
+                                                },
+                                                child: const FittedBox(
+                                                    child: Text("Reset")),
                                               ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 4),
-                                                child: ElevatedButton(
-                                                  style:
-                                                      ElevatedButton.styleFrom(
-                                                    textStyle: const TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                    ),
-                                                    elevation: 6.0,
-                                                    foregroundColor:
-                                                        const Color.fromARGB(
-                                                            255, 66, 66, 66),
-                                                    shadowColor: Colors.orange,
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                    ),
-                                                    backgroundColor:
-                                                        Colors.orange,
-                                                    minimumSize:
-                                                        const Size(45, 40),
-                                                    maximumSize:
-                                                        const Size(90, 50),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 4),
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  textStyle: const TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                  onPressed: () {
-                                                    setController.text =
-                                                        counterMap[azkar[index]]
-                                                            .toString();
-                                                    AwesomeDialog(
-                                                      context: context,
-                                                      customHeader: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.5,
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height *
-                                                            0.5,
-                                                        decoration:
-                                                            const BoxDecoration(
-                                                          color: Colors.orange,
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                        child: const FittedBox(
-                                                          fit: BoxFit.scaleDown,
-                                                          child: Icon(
-                                                            Icons.info,
-                                                            size: 150,
-                                                            color: Colors.white,
-                                                          ),
+                                                  elevation: 6.0,
+                                                  foregroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 66, 66, 66),
+                                                  shadowColor: Colors.orange,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  backgroundColor:
+                                                      Colors.orange,
+                                                  minimumSize:
+                                                      const Size(45, 40),
+                                                  maximumSize:
+                                                      const Size(90, 50),
+                                                ),
+                                                onPressed: () {
+                                                  setController.text =
+                                                      counterMap[azkar[index]]
+                                                          .toString();
+                                                  AwesomeDialog(
+                                                    context: context,
+                                                    customHeader: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.5,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.5,
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        color: Colors.orange,
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: const FittedBox(
+                                                        fit: BoxFit.scaleDown,
+                                                        child: Icon(
+                                                          Icons.info,
+                                                          size: 150,
+                                                          color: Colors.white,
                                                         ),
                                                       ),
-                                                      isDense: false,
-                                                      body: Column(
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(8.0),
-                                                            child: Text(
-                                                                "Set Counter",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                            .grey[
-                                                                        800],
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    fontSize:
-                                                                        20)),
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              const Icon(
-                                                                  Icons
-                                                                      .edit_note,
-                                                                  size: 40),
-                                                              SizedBox(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.6,
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          left:
-                                                                              10),
-                                                                  child: Form(
-                                                                    key:
-                                                                        formKey,
-                                                                    child:
-                                                                        TextFormField(
-                                                                      controller:
-                                                                          setController,
-                                                                      validator:
-                                                                          (value) {
-                                                                        if (value ==
-                                                                                null ||
-                                                                            value
-                                                                                .isEmpty) {
-                                                                          return 'Please Set a number';
-                                                                        } else if (int.tryParse(value) ==
-                                                                            null) {
-                                                                          return 'Please Set a number';
-                                                                        } else if (int.tryParse(value)! <
-                                                                            1) {
-                                                                          return 'Please Set a number more than 0';
-                                                                        } else {
-                                                                          return null;
-                                                                        }
-                                                                      },
-                                                                      decoration:
-                                                                          InputDecoration(
-                                                                        filled:
-                                                                            true,
-                                                                        fillColor:
-                                                                            Colors.grey[300],
-                                                                        enabledBorder:
-                                                                            const OutlineInputBorder(borderSide: BorderSide.none),
-                                                                        border: OutlineInputBorder(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(10)),
-                                                                        hintText:
-                                                                            "Count",
-                                                                      ),
+                                                    ),
+                                                    isDense: false,
+                                                    body: Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: Text(
+                                                              "Set Counter",
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      800],
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20)),
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            const Icon(
+                                                                Icons.edit_note,
+                                                                size: 40),
+                                                            SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.6,
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                            10),
+                                                                child: Form(
+                                                                  key: formKey,
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller:
+                                                                        setController,
+                                                                    validator:
+                                                                        (value) {
+                                                                      if (value ==
+                                                                              null ||
+                                                                          value
+                                                                              .isEmpty) {
+                                                                        return 'Please Set a number';
+                                                                      } else if (int.tryParse(
+                                                                              value) ==
+                                                                          null) {
+                                                                        return 'Please Set a number';
+                                                                      } else if (int.tryParse(
+                                                                              value)! <
+                                                                          1) {
+                                                                        return 'Please Set a number more than 0';
+                                                                      } else {
+                                                                        return null;
+                                                                      }
+                                                                    },
+                                                                    decoration:
+                                                                        InputDecoration(
+                                                                      filled:
+                                                                          true,
+                                                                      fillColor:
+                                                                          Colors
+                                                                              .grey[300],
+                                                                      enabledBorder:
+                                                                          const OutlineInputBorder(
+                                                                              borderSide: BorderSide.none),
+                                                                      border: OutlineInputBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10)),
+                                                                      hintText:
+                                                                          "Count",
                                                                     ),
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      btnOkText: "Save",
-                                                      buttonsTextStyle:
-                                                          TextStyle(
-                                                        color: Colors.grey[800],
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 18,
-                                                      ),
-                                                      btnOkColor: Colors.orange,
-                                                      btnOkOnPress: () {
-                                                        if (formKey
-                                                            .currentState!
-                                                            .validate()) {
-                                                          setState(() {
-                                                            counterMap[azkar[
-                                                                    index]] =
-                                                                int.parse(
-                                                                    setController
-                                                                        .text);
-                                                            prefs.setString(
-                                                                "counterMap",
-                                                                jsonEncode(
-                                                                    counterMap));
-                                                          });
-                                                        }
-                                                      },
-                                                    ).show();
-                                                  },
-                                                  child: const FittedBox(
-                                                      child: Text("Set")),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 70,
-                                                child: LayoutBuilder(builder:
-                                                    (context, constraints) {
-                                                  double size =
-                                                      constraints.maxHeight *
-                                                          0.85;
-                                                  return Container(
-                                                    alignment: Alignment.center,
-                                                    height: size,
-                                                    width: size,
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      shape: BoxShape.circle,
-                                                      color: Colors.orange,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
-                                                    padding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 8),
-                                                    margin: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 8),
-                                                    child: Text(
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 15,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis),
-                                                        "${counterMap[azkar[index]] ?? 0}"),
-                                                  );
-                                                }),
+                                                    btnOkText: "Save",
+                                                    buttonsTextStyle: TextStyle(
+                                                      color: Colors.grey[800],
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 18,
+                                                    ),
+                                                    btnOkColor: Colors.orange,
+                                                    btnOkOnPress: () {
+                                                      if (formKey.currentState!
+                                                          .validate()) {
+                                                        setState(() {
+                                                          counterMap[azkar[
+                                                                  index]] =
+                                                              int.parse(
+                                                                  setController
+                                                                      .text);
+                                                          prefs.setString(
+                                                              "counterMap",
+                                                              jsonEncode(
+                                                                  counterMap));
+                                                        });
+                                                      }
+                                                    },
+                                                  ).show();
+                                                },
+                                                child: const FittedBox(
+                                                    child: Text("Set")),
                                               ),
-                                            ]),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )),
-                          ),
+                                            ),
+                                            SizedBox(
+                                              height: 70,
+                                              child: LayoutBuilder(builder:
+                                                  (context, constraints) {
+                                                double size =
+                                                    constraints.maxHeight *
+                                                        0.85;
+                                                return Container(
+                                                  alignment: Alignment.center,
+                                                  height: size,
+                                                  width: size,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.orange,
+                                                  ),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 8),
+                                                  margin: const EdgeInsets
+                                                      .symmetric(horizontal: 8),
+                                                  child: Text(
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 15,
+                                                          overflow: TextOverflow
+                                                              .ellipsis),
+                                                      "${counterMap[azkar[index]] ?? 0}"),
+                                                );
+                                              }),
+                                            ),
+                                          ]),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
-            ))
+                ),
+              ],
+            ),
+          )
         : Scaffold(
             bottomNavigationBar: BottomNavigationBar(
                 currentIndex: index,
@@ -595,361 +577,343 @@ class _ZekrState extends State<Azkar> {
                   const BottomNavigationBarItem(
                       icon: Icon(Icons.settings), label: 'settings'),
                 ]),
-            body: Container(
-              color: Colors.grey[800],
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 70, left: 85, right: 50, bottom: 10),
-                    child: MaterialButton(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        height: 50,
-                        minWidth: 200,
-                        onPressed: () {
-                          Navigator.pushNamed(context, "addzekr");
-                        },
-                        color: Colors.orange,
-                        child: const Text("Add Zekr",
-                            style: TextStyle(fontSize: 20))),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: azkar.length,
-                      itemBuilder: (context, index) => InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      Homepage(zekr: azkar[index])));
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 18),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            height: MediaQuery.of(context).size.height * 0.46,
-                            child: Card(
-                                elevation: 8.0,
-                                shadowColor: Colors.orange,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.topCenter,
-                                        child: Text(
-                                          textAlign: TextAlign.start,
-                                          textDirection: TextDirection.ltr,
-                                          style: const TextStyle(
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                          azkar[index],
-                                          maxLines: 3,
-                                          overflow: TextOverflow.ellipsis,
+            body: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 70, left: 85, right: 50, bottom: 10),
+                  child: MaterialButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      height: 50,
+                      minWidth: 200,
+                      onPressed: () {
+                        Navigator.pushNamed(context, "addzekr");
+                      },
+                      color: Colors.orange,
+                      child: const Text("Add Zekr",
+                          style: TextStyle(fontSize: 20))),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: azkar.length,
+                    itemBuilder: (context, index) => InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Homepage(zekr: azkar[index])));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 18),
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          height: MediaQuery.of(context).size.height * 0.46,
+                          child: Card(
+                              elevation: 8.0,
+                              shadowColor: Colors.orange,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Text(
+                                        textAlign: TextAlign.start,
+                                        textDirection: TextDirection.ltr,
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
                                         ),
+                                        azkar[index],
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
                                       ),
-                                      const Spacer(),
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 4),
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  elevation: 6.0,
-                                                  foregroundColor:
-                                                      const Color.fromARGB(
-                                                          255, 66, 66, 66),
-                                                  shadowColor: Colors.orange,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  backgroundColor:
-                                                      Colors.orange,
-                                                  minimumSize:
-                                                      const Size(65, 40),
-                                                  maximumSize:
-                                                      const Size(100, 50),
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 4),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                textStyle: const TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    deleteZeker(index);
-                                                  });
-                                                },
-                                                child: const Text("Delete"),
+                                                elevation: 6.0,
+                                                foregroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 66, 66, 66),
+                                                shadowColor: Colors.orange,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                backgroundColor: Colors.orange,
+                                                minimumSize: const Size(65, 40),
+                                                maximumSize:
+                                                    const Size(100, 50),
                                               ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  deleteZeker(index);
+                                                });
+                                              },
+                                              child: const Text("Delete"),
                                             ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 4),
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  elevation: 6.0,
-                                                  foregroundColor:
-                                                      const Color.fromARGB(
-                                                          255, 66, 66, 66),
-                                                  shadowColor: Colors.orange,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  backgroundColor:
-                                                      Colors.orange,
-                                                  minimumSize:
-                                                      const Size(65, 40),
-                                                  maximumSize:
-                                                      const Size(100, 50),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 4),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                textStyle: const TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                                onPressed: () {
-                                                  setState(() {
-                                                    resetCounter(index);
-                                                  });
-                                                },
-                                                child: const Text("Reset"),
+                                                elevation: 6.0,
+                                                foregroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 66, 66, 66),
+                                                shadowColor: Colors.orange,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                backgroundColor: Colors.orange,
+                                                minimumSize: const Size(65, 40),
+                                                maximumSize:
+                                                    const Size(100, 50),
                                               ),
+                                              onPressed: () {
+                                                setState(() {
+                                                  resetCounter(index);
+                                                });
+                                              },
+                                              child: const Text("Reset"),
                                             ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 4),
-                                              child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  elevation: 6.0,
-                                                  foregroundColor:
-                                                      const Color.fromARGB(
-                                                          255, 66, 66, 66),
-                                                  shadowColor: Colors.orange,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  backgroundColor:
-                                                      Colors.orange,
-                                                  minimumSize:
-                                                      const Size(65, 40),
-                                                  maximumSize:
-                                                      const Size(100, 50),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 4),
+                                            child: ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                textStyle: const TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                                onPressed: () {
-                                                  setController.text =
-                                                      counterMap[azkar[index]]
-                                                          .toString();
+                                                elevation: 6.0,
+                                                foregroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 66, 66, 66),
+                                                shadowColor: Colors.orange,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                ),
+                                                backgroundColor: Colors.orange,
+                                                minimumSize: const Size(65, 40),
+                                                maximumSize:
+                                                    const Size(100, 50),
+                                              ),
+                                              onPressed: () {
+                                                setController.text =
+                                                    counterMap[azkar[index]]
+                                                        .toString();
 
-                                                  AwesomeDialog(
-                                                    context: context,
+                                                AwesomeDialog(
+                                                  context: context,
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.8,
+                                                  title: 'Set Count',
+                                                  titleTextStyle:
+                                                      const TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.orange,
+                                                  ),
+                                                  customHeader: Container(
+                                                    alignment: Alignment.center,
+                                                    height:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .shortestSide *
+                                                            0.5,
                                                     width:
                                                         MediaQuery.of(context)
                                                                 .size
-                                                                .width *
-                                                            0.8,
-                                                    title: 'Set Count',
-                                                    titleTextStyle:
-                                                        const TextStyle(
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                                .shortestSide *
+                                                            0.5,
+                                                    decoration: BoxDecoration(
                                                       color: Colors.orange,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              70),
                                                     ),
-                                                    customHeader: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      height: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .shortestSide *
-                                                          0.5,
-                                                      width: MediaQuery.of(
-                                                                  context)
-                                                              .size
-                                                              .shortestSide *
-                                                          0.5,
-                                                      decoration: BoxDecoration(
-                                                        color: Colors.orange,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(70),
-                                                      ),
-                                                      child: const FittedBox(
-                                                        fit: BoxFit.scaleDown,
-                                                        child: Icon(
-                                                          Icons.info,
-                                                          size: 300,
-                                                          color: Colors.white,
-                                                        ),
+                                                    child: const FittedBox(
+                                                      fit: BoxFit.scaleDown,
+                                                      child: Icon(
+                                                        Icons.info,
+                                                        size: 300,
+                                                        color: Colors.white,
                                                       ),
                                                     ),
-                                                    body: Column(
-                                                      children: [
-                                                        const Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  8.0),
-                                                          child: Text(
-                                                            "Set Count",
-                                                            style: TextStyle(
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: Color
-                                                                    .fromARGB(
-                                                                        255,
-                                                                        41,
-                                                                        41,
-                                                                        41)),
-                                                          ),
+                                                  ),
+                                                  body: Column(
+                                                    children: [
+                                                      const Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8.0),
+                                                        child: Text(
+                                                          "Set Count",
+                                                          style: TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      41,
+                                                                      41,
+                                                                      41)),
                                                         ),
-                                                        Row(
-                                                          children: [
-                                                            const Icon(
-                                                                Icons.edit_note,
-                                                                size: 40),
-                                                            Form(
-                                                              key: formKey,
-                                                              child: SizedBox(
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    0.6,
-                                                                child:
-                                                                    TextFormField(
-                                                                  controller:
-                                                                      setController,
-                                                                  validator:
-                                                                      (value) {
-                                                                    if (value ==
-                                                                            null ||
-                                                                        value
-                                                                            .isEmpty) {
-                                                                      return 'Please Set a number';
-                                                                    } else if (int.tryParse(
-                                                                            value) ==
-                                                                        null) {
-                                                                      return 'Please Set a number';
-                                                                    } else if (int.tryParse(
-                                                                            value)! <
-                                                                        1) {
-                                                                      return 'Please Set a number more than 0';
-                                                                    } else {
-                                                                      return null;
-                                                                    }
-                                                                  },
-                                                                  decoration:
-                                                                      InputDecoration(
-                                                                    filled:
-                                                                        true,
-                                                                    fillColor:
-                                                                        Colors.grey[
-                                                                            300],
-                                                                    enabledBorder:
-                                                                        const OutlineInputBorder(
-                                                                            borderSide:
-                                                                                BorderSide.none),
-                                                                    border: OutlineInputBorder(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10)),
-                                                                    hintText:
-                                                                        "Count",
-                                                                  ),
+                                                      ),
+                                                      Row(
+                                                        children: [
+                                                          const Icon(
+                                                              Icons.edit_note,
+                                                              size: 40),
+                                                          Form(
+                                                            key: formKey,
+                                                            child: SizedBox(
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  0.6,
+                                                              child:
+                                                                  TextFormField(
+                                                                controller:
+                                                                    setController,
+                                                                validator:
+                                                                    (value) {
+                                                                  if (value ==
+                                                                          null ||
+                                                                      value
+                                                                          .isEmpty) {
+                                                                    return 'Please Set a number';
+                                                                  } else if (int
+                                                                          .tryParse(
+                                                                              value) ==
+                                                                      null) {
+                                                                    return 'Please Set a number';
+                                                                  } else if (int
+                                                                          .tryParse(
+                                                                              value)! <
+                                                                      1) {
+                                                                    return 'Please Set a number more than 0';
+                                                                  } else {
+                                                                    return null;
+                                                                  }
+                                                                },
+                                                                decoration:
+                                                                    InputDecoration(
+                                                                  filled: true,
+                                                                  fillColor:
+                                                                      Colors.grey[
+                                                                          300],
+                                                                  enabledBorder:
+                                                                      const OutlineInputBorder(
+                                                                          borderSide:
+                                                                              BorderSide.none),
+                                                                  border: OutlineInputBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              10)),
+                                                                  hintText:
+                                                                      "Count",
                                                                 ),
                                                               ),
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    btnOkText: "Save",
-                                                    btnOkColor: Colors.orange,
-                                                    btnOkOnPress: () {
-                                                      if (formKey.currentState!
-                                                          .validate()) {
-                                                        setState(() {
-                                                          counterMap[azkar[
-                                                                  index]] =
-                                                              int.parse(
-                                                                  setController
-                                                                      .text);
-                                                          prefs.setString(
-                                                              "counterMap",
-                                                              jsonEncode(
-                                                                  counterMap));
-                                                        });
-                                                      }
-                                                    },
-                                                  ).show();
-                                                },
-                                                child: const Text("Set"),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 70,
-                                              child: LayoutBuilder(builder:
-                                                  (context, constraints) {
-                                                double size =
-                                                    constraints.maxHeight *
-                                                        0.85;
-                                                return Container(
-                                                  alignment: Alignment.center,
-                                                  height: size,
-                                                  width: size,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: Colors.orange,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
                                                   ),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(horizontal: 8),
-                                                  margin: const EdgeInsets
-                                                      .symmetric(horizontal: 8),
-                                                  child: Text(
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: const TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 15,
-                                                          overflow: TextOverflow
-                                                              .ellipsis),
-                                                      "${counterMap[azkar[index]] ?? 0}"),
-                                                );
-                                              }),
+                                                  btnOkText: "Save",
+                                                  btnOkColor: Colors.orange,
+                                                  btnOkOnPress: () {
+                                                    if (formKey.currentState!
+                                                        .validate()) {
+                                                      setState(() {
+                                                        counterMap[
+                                                                azkar[index]] =
+                                                            int.parse(
+                                                                setController
+                                                                    .text);
+                                                        prefs.setString(
+                                                            "counterMap",
+                                                            jsonEncode(
+                                                                counterMap));
+                                                      });
+                                                    }
+                                                  },
+                                                ).show();
+                                              },
+                                              child: const Text("Set"),
                                             ),
-                                          ]),
-                                    ],
-                                  ),
-                                )),
-                          ),
+                                          ),
+                                          SizedBox(
+                                            height: 70,
+                                            child: LayoutBuilder(builder:
+                                                (context, constraints) {
+                                              double size =
+                                                  constraints.maxHeight * 0.85;
+                                              return Container(
+                                                alignment: Alignment.center,
+                                                height: size,
+                                                width: size,
+                                                decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.orange,
+                                                ),
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8),
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 8),
+                                                child: Text(
+                                                    textAlign: TextAlign.center,
+                                                    style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 15,
+                                                        overflow: TextOverflow
+                                                            .ellipsis),
+                                                    "${counterMap[azkar[index]] ?? 0}"),
+                                              );
+                                            }),
+                                          ),
+                                        ]),
+                                  ],
+                                ),
+                              )),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ));
   }
 }

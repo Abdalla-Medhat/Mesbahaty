@@ -76,7 +76,7 @@ class _HomepageState extends State<Homepage> {
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: index,
             unselectedFontSize: 15,
-            selectedItemColor: Colors.orange,
+            selectedItemColor: const Color(0xffF4A300),
             selectedFontSize: 17,
             iconSize: 27,
             selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
@@ -114,7 +114,9 @@ class _HomepageState extends State<Homepage> {
                                 offset: Offset(0, 2),
                                 spreadRadius: -0.10)
                           ],
-                          color: index == 1 ? Colors.orange : Colors.grey[700],
+                          color: index == 1
+                              ? const Color(0xffF4A300)
+                              : Colors.grey[700],
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
@@ -140,7 +142,8 @@ class _HomepageState extends State<Homepage> {
             Expanded(
               child: clickablePage == null
                   ? const Center(
-                      child: CircularProgressIndicator(color: Colors.orange))
+                      child:
+                          CircularProgressIndicator(color: Color(0xffF4A300)))
                   : mainContent(),
             ),
           ],
@@ -152,6 +155,7 @@ class _HomepageState extends State<Homepage> {
     if (clickablePage == true) {
       if (orientation == Orientation.portrait) {
         return InkWell(
+            splashColor: Colors.transparent,
             onTap: () {
               incrementCount();
             },
@@ -165,7 +169,7 @@ class _HomepageState extends State<Homepage> {
                       height: MediaQuery.of(context).size.height * 0.25,
                       margin: const EdgeInsets.only(top: 40),
                       decoration: BoxDecoration(
-                        color: Colors.orange,
+                        color: const Color(0xFFF4A300),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -177,7 +181,8 @@ class _HomepageState extends State<Homepage> {
                           child: Text(
                             widget.zekr ??
                                 "You can add a zekr here from the Azkar page",
-                            style: const TextStyle(fontSize: 17),
+                            style: const TextStyle(
+                                fontSize: 17, color: Color(0XFF101827)),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 5,
                           ),
@@ -189,26 +194,46 @@ class _HomepageState extends State<Homepage> {
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),
                   Flexible(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: MaterialButton(
-                        shape: const CircleBorder(),
-                        color: Colors.orange,
-                        onPressed: () {
-                          setState(() {
-                            incrementCount();
-                          });
-                        },
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "$count",
-                              style: TextStyle(
-                                fontSize:
-                                    200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
-                                color: Colors.grey[800],
-                                fontWeight: FontWeight.bold,
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFFF4A300).withAlpha(125),
+                            blurRadius: 40,
+                            spreadRadius: 7,
+                          ),
+                          BoxShadow(
+                              color: const Color(0xFFF4A300).withAlpha(100),
+                              blurRadius: 60,
+                              spreadRadius: 15)
+                        ],
+                        shape: BoxShape.circle,
+                        color: const Color(0xFFFFA726).withAlpha(75),
+                      ),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            backgroundColor: const Color(0xffF4A300),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              incrementCount();
+                            });
+                          },
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                "$count",
+                                style: TextStyle(
+                                  fontSize:
+                                      200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                                  color: Colors.grey[800],
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -221,6 +246,7 @@ class _HomepageState extends State<Homepage> {
             ]));
       } else {
         return InkWell(
+            splashColor: Colors.transparent,
             onTap: () {
               incrementCount();
             },
@@ -234,7 +260,7 @@ class _HomepageState extends State<Homepage> {
                       height: MediaQuery.of(context).size.height * 0.25,
                       margin: const EdgeInsets.only(top: 40),
                       decoration: BoxDecoration(
-                        color: Colors.orange,
+                        color: const Color(0xffF4A300),
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -258,26 +284,46 @@ class _HomepageState extends State<Homepage> {
                     height: MediaQuery.of(context).size.height * 0.1,
                   ),
                   Flexible(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: MaterialButton(
-                        shape: const CircleBorder(),
-                        color: Colors.orange,
-                        onPressed: () {
-                          setState(() {
-                            incrementCount();
-                          });
-                        },
-                        child: Center(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "$count",
-                              style: TextStyle(
-                                fontSize:
-                                    200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
-                                color: Colors.grey[800],
-                                fontWeight: FontWeight.bold,
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: const Color(0xFFF4A300).withAlpha(125),
+                            blurRadius: 40,
+                            spreadRadius: 7,
+                          ),
+                          BoxShadow(
+                              color: const Color(0xFFF4A300).withAlpha(100),
+                              blurRadius: 60,
+                              spreadRadius: 15)
+                        ],
+                        shape: BoxShape.circle,
+                        color: const Color(0xFFFFA726).withAlpha(75),
+                      ),
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            backgroundColor: const Color(0xffF4A300),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              incrementCount();
+                            });
+                          },
+                          child: Center(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                "$count",
+                                style: TextStyle(
+                                  fontSize:
+                                      200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                                  color: Colors.grey[800],
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
@@ -300,7 +346,7 @@ class _HomepageState extends State<Homepage> {
                 height: MediaQuery.of(context).size.height * 0.25,
                 margin: const EdgeInsets.only(top: 40),
                 decoration: BoxDecoration(
-                  color: Colors.orange,
+                  color: const Color(0xffF4A300),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -324,25 +370,46 @@ class _HomepageState extends State<Homepage> {
               height: MediaQuery.of(context).size.height * 0.1,
             ),
             Flexible(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.8,
-                child: MaterialButton(
-                  shape: const CircleBorder(),
-                  color: Colors.orange,
-                  onPressed: () {
-                    setState(() {
-                      incrementCount();
-                    });
-                  },
-                  child: Center(
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        "$count",
-                        style: TextStyle(
-                          fontSize: 200,
-                          color: Colors.grey[800],
-                          fontWeight: FontWeight.bold,
+              child: Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFFF4A300).withAlpha(125),
+                      blurRadius: 40,
+                      spreadRadius: 7,
+                    ),
+                    BoxShadow(
+                        color: const Color(0xFFF4A300).withAlpha(100),
+                        blurRadius: 60,
+                        spreadRadius: 15)
+                  ],
+                  shape: BoxShape.circle,
+                  color: const Color(0xFFFFA726).withAlpha(75),
+                ),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      backgroundColor: const Color(0xffF4A300),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        incrementCount();
+                      });
+                    },
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "$count",
+                          style: TextStyle(
+                            fontSize:
+                                200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -363,7 +430,7 @@ class _HomepageState extends State<Homepage> {
                   height: MediaQuery.of(context).size.height * 0.4,
                   margin: const EdgeInsets.only(top: 40),
                   decoration: BoxDecoration(
-                    color: Colors.orange,
+                    color: const Color(0xffF4A300),
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -387,27 +454,46 @@ class _HomepageState extends State<Homepage> {
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
               Flexible(
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.7,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: MaterialButton(
-                    shape: const CircleBorder(),
-                    color: Colors.orange,
-                    onPressed: () {
-                      setState(() {
-                        incrementCount();
-                      });
-                    },
-                    child: Center(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          "$count",
-                          style: TextStyle(
-                            fontSize:
-                                200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
-                            color: Colors.grey[800],
-                            fontWeight: FontWeight.bold,
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFFF4A300).withAlpha(125),
+                        blurRadius: 40,
+                        spreadRadius: 7,
+                      ),
+                      BoxShadow(
+                          color: const Color(0xFFF4A300).withAlpha(100),
+                          blurRadius: 60,
+                          spreadRadius: 15)
+                    ],
+                    shape: BoxShape.circle,
+                    color: const Color(0xFFFFA726).withAlpha(75),
+                  ),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        backgroundColor: const Color(0xffF4A300),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          incrementCount();
+                        });
+                      },
+                      child: Center(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            "$count",
+                            style: TextStyle(
+                              fontSize:
+                                  200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
