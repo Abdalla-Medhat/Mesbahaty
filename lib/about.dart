@@ -61,7 +61,7 @@ I'm always striving to deliver digital experiences that blend benefit with ease,
                               onTap: () => launchURL(repoUrl),
                               child: const Text("View on GitHub",
                                   style: TextStyle(
-                                    color: Colors.orange,
+                                    color: Color(0xFFF4A300),
                                     fontWeight: FontWeight.bold,
                                     fontSize: 15,
                                   ),

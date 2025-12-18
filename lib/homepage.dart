@@ -155,7 +155,11 @@ class _HomepageState extends State<Homepage> {
     if (clickablePage == true) {
       if (orientation == Orientation.portrait) {
         return InkWell(
-            splashColor: Colors.transparent,
+            // splashColor: Colors.transparent,
+            // hoverColor: Colors.transparent,
+            // highlightColor: Colors.white,
+            // focusColor: Colors.transparent,
+            // overlayColor: WidgetStateProperty.all(Colors.transparent),
             onTap: () {
               incrementCount();
             },
@@ -173,7 +177,7 @@ class _HomepageState extends State<Homepage> {
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                                color: Color(0xFFF4A300).withAlpha(125),
+                                color: const Color(0xFFF4A300).withAlpha(125),
                                 blurRadius: 25,
                                 spreadRadius: 1.5)
                           ]),
@@ -218,6 +222,7 @@ class _HomepageState extends State<Homepage> {
                       ),
                       child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.width * 0.8,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: const CircleBorder(),
@@ -234,8 +239,7 @@ class _HomepageState extends State<Homepage> {
                               child: Text(
                                 "$count",
                                 style: TextStyle(
-                                  fontSize:
-                                      200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                                  fontSize: 200,
                                   color: Colors.grey[800],
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -262,12 +266,17 @@ class _HomepageState extends State<Homepage> {
                   Center(
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.25,
+                      height: MediaQuery.of(context).size.height * 0.4,
                       margin: const EdgeInsets.only(top: 40),
                       decoration: BoxDecoration(
-                        color: const Color(0xffF4A300),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
+                          color: const Color(0xffF4A300),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                                color: const Color(0xFFF4A300).withAlpha(125),
+                                blurRadius: 25,
+                                spreadRadius: 1.5)
+                          ]),
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
                         const SizedBox(
                           height: 25,
@@ -279,7 +288,7 @@ class _HomepageState extends State<Homepage> {
                                 "You can add a zekr here from the Azkar page",
                             style: const TextStyle(fontSize: 17),
                             overflow: TextOverflow.ellipsis,
-                            maxLines: 5,
+                            maxLines: 3,
                           ),
                         ),
                       ]),
@@ -307,7 +316,8 @@ class _HomepageState extends State<Homepage> {
                         color: const Color(0xFFFFA726).withAlpha(75),
                       ),
                       child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: MediaQuery.of(context).size.width * 0.6,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: const CircleBorder(),
@@ -351,9 +361,14 @@ class _HomepageState extends State<Homepage> {
                 height: MediaQuery.of(context).size.height * 0.25,
                 margin: const EdgeInsets.only(top: 40),
                 decoration: BoxDecoration(
-                  color: const Color(0xffF4A300),
-                  borderRadius: BorderRadius.circular(20),
-                ),
+                    color: const Color(0xffF4A300),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                          color: const Color(0xFFF4A300).withAlpha(125),
+                          blurRadius: 25,
+                          spreadRadius: 1.5)
+                    ]),
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
                   const SizedBox(
                     height: 25,
@@ -394,6 +409,7 @@ class _HomepageState extends State<Homepage> {
                 ),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.width * 0.8,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
@@ -434,9 +450,14 @@ class _HomepageState extends State<Homepage> {
                   height: MediaQuery.of(context).size.height * 0.4,
                   margin: const EdgeInsets.only(top: 40),
                   decoration: BoxDecoration(
-                    color: const Color(0xffF4A300),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                      color: const Color(0xffF4A300),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                            color: const Color(0xFFF4A300).withAlpha(125),
+                            blurRadius: 25,
+                            spreadRadius: 1.5)
+                      ]),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     const SizedBox(
                       height: 25,
@@ -477,6 +498,7 @@ class _HomepageState extends State<Homepage> {
                   ),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.width * 0.8,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
