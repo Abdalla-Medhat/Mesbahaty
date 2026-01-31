@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tasabeeh/homepage.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:tasabeeh/homepage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Azkar extends StatefulWidget {
@@ -23,7 +23,7 @@ class _ZekrState extends State<Azkar> {
   late SharedPreferences prefs;
   initAll() async {
     prefs = await SharedPreferences.getInstance();
-    loadingZekr(); // تحميل الأذكار
+    loadingZekr(); // Loading Azkar
     loadCounterData(); // تحميل العدادات من SharedPreferences
   }
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+late Orientation? orientation;
+
 class Homepage extends StatefulWidget {
   final String? zekr;
   const Homepage({super.key, this.zekr});
@@ -150,112 +152,103 @@ class _HomepageState extends State<Homepage> {
         ));
   }
 
-  late Orientation? orientation;
   Widget mainContent() {
     if (clickablePage == true) {
       if (orientation == Orientation.portrait) {
-        return InkWell(
-            // splashColor: Colors.transparent,
-            // hoverColor: Colors.transparent,
-            // highlightColor: Colors.white,
-            // focusColor: Colors.transparent,
-            // overlayColor: WidgetStateProperty.all(Colors.transparent),
-            onTap: () {
-              incrementCount();
-            },
-            child: ListView(children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.25,
-                      margin: const EdgeInsets.only(top: 40),
-                      decoration: BoxDecoration(
-                          color: const Color(0xFFF4A300),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                                color: const Color(0xFFF4A300).withAlpha(125),
-                                blurRadius: 25,
-                                spreadRadius: 1.5)
-                          ]),
-                      child: Column(mainAxisSize: MainAxisSize.min, children: [
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                          child: Text(
-                            widget.zekr ??
-                                "You can add a zekr here from the Azkar page",
-                            style: const TextStyle(
-                                fontSize: 17, color: Color(0XFF101827)),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 5,
-                          ),
-                        ),
-                      ]),
-                    ),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                  ),
-                  Flexible(
-                    child: Container(
-                      padding: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
+        return GestureDetector(
+          onTap: () {
+            incrementCount();
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.height * 0.25,
+                  margin: const EdgeInsets.only(top: 40),
+                  decoration: BoxDecoration(
+                      color: const Color(0xFFF4A300),
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
                             color: const Color(0xFFF4A300).withAlpha(125),
-                            blurRadius: 40,
-                            spreadRadius: 7,
-                          ),
-                          BoxShadow(
-                              color: const Color(0xFFF4A300).withAlpha(100),
-                              blurRadius: 60,
-                              spreadRadius: 15)
-                        ],
-                        shape: BoxShape.circle,
-                        color: const Color(0xFFFFA726).withAlpha(75),
+                            blurRadius: 25,
+                            spreadRadius: 1.5)
+                      ]),
+                  child: Column(mainAxisSize: MainAxisSize.min, children: [
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Text(
+                        widget.zekr ??
+                            "You can add a zekr here from the Azkar page",
+                        style: const TextStyle(
+                            fontSize: 17, color: Color(0XFF101827)),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 5,
                       ),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.width * 0.8,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
-                            backgroundColor: const Color(0xffF4A300),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              incrementCount();
-                            });
-                          },
-                          child: Center(
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                "$count",
-                                style: TextStyle(
-                                  fontSize: 200,
-                                  color: Colors.grey[800],
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
+                    ),
+                  ]),
+                ),
+              ),
+              const Spacer(),
+              Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFFF4A300).withAlpha(125),
+                      blurRadius: 40,
+                      spreadRadius: 7,
+                    ),
+                    BoxShadow(
+                        color: const Color(0xFFF4A300).withAlpha(100),
+                        blurRadius: 60,
+                        spreadRadius: 15)
+                  ],
+                  shape: BoxShape.circle,
+                  color: const Color(0xFFFFA726).withAlpha(75),
+                ),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.width * 0.7,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      backgroundColor: const Color(0xffF4A300),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        incrementCount();
+                      });
+                    },
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "$count",
+                          style: TextStyle(
+                            fontSize: 100,
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ),
                   ),
-                ],
+                ),
               ),
-            ]));
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.05,
+              ),
+            ],
+          ),
+        );
       } else {
-        return InkWell(
-            splashColor: Colors.transparent,
+        return GestureDetector(
             onTap: () {
               incrementCount();
             },
@@ -315,29 +308,30 @@ class _HomepageState extends State<Homepage> {
                         shape: BoxShape.circle,
                         color: const Color(0xFFFFA726).withAlpha(75),
                       ),
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        height: MediaQuery.of(context).size.width * 0.6,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
-                            backgroundColor: const Color(0xffF4A300),
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              incrementCount();
-                            });
-                          },
-                          child: Center(
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                "$count",
-                                style: TextStyle(
-                                  fontSize:
-                                      200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
-                                  color: Colors.grey[800],
-                                  fontWeight: FontWeight.bold,
+                      child: ClipOval(
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.45,
+                          height: MediaQuery.of(context).size.width * 0.45,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              shape: const CircleBorder(),
+                              backgroundColor: const Color(0xffF4A300),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                incrementCount();
+                              });
+                            },
+                            child: Center(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  "$count",
+                                  style: TextStyle(
+                                    fontSize: 100,
+                                    color: Colors.grey[800],
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
@@ -350,6 +344,7 @@ class _HomepageState extends State<Homepage> {
               ),
             ]));
       }
+      // If page is not clickable
     } else {
       if (orientation == Orientation.portrait) {
         return Column(
@@ -386,30 +381,28 @@ class _HomepageState extends State<Homepage> {
                 ]),
               ),
             ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-            ),
-            Flexible(
-              child: Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: const Color(0xFFF4A300).withAlpha(125),
-                      blurRadius: 40,
-                      spreadRadius: 7,
-                    ),
-                    BoxShadow(
-                        color: const Color(0xFFF4A300).withAlpha(100),
-                        blurRadius: 60,
-                        spreadRadius: 15)
-                  ],
-                  shape: BoxShape.circle,
-                  color: const Color(0xFFFFA726).withAlpha(75),
-                ),
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFFF4A300).withAlpha(125),
+                    blurRadius: 20,
+                    spreadRadius: 3,
+                  ),
+                  BoxShadow(
+                      color: const Color(0xFFF4A300).withAlpha(100),
+                      blurRadius: 30,
+                      spreadRadius: 10)
+                ],
+                shape: BoxShape.circle,
+                color: const Color(0xFFFFA726).withAlpha(75),
+              ),
+              child: ClipOval(
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.width * 0.8,
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  height: MediaQuery.of(context).size.width * 0.7,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: const CircleBorder(),
@@ -426,7 +419,7 @@ class _HomepageState extends State<Homepage> {
                         child: Text(
                           "$count",
                           style: TextStyle(
-                            fontSize: 200,
+                            fontSize: 100,
                             color: Colors.grey[800],
                             fontWeight: FontWeight.bold,
                           ),
@@ -436,6 +429,9 @@ class _HomepageState extends State<Homepage> {
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
             ),
           ],
         );
@@ -476,29 +472,29 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.1,
+                height: MediaQuery.of(context).size.height * 0.15,
               ),
-              Flexible(
-                child: Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFFF4A300).withAlpha(125),
-                        blurRadius: 40,
-                        spreadRadius: 7,
-                      ),
-                      BoxShadow(
-                          color: const Color(0xFFF4A300).withAlpha(100),
-                          blurRadius: 60,
-                          spreadRadius: 15)
-                    ],
-                    shape: BoxShape.circle,
-                    color: const Color(0xFFFFA726).withAlpha(75),
-                  ),
+              Container(
+                padding: const EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: const Color(0xFFF4A300).withAlpha(125),
+                      blurRadius: 20,
+                      spreadRadius: 5,
+                    ),
+                    BoxShadow(
+                        color: const Color(0xFFF4A300).withAlpha(100),
+                        blurRadius: 30,
+                        spreadRadius: 10)
+                  ],
+                  shape: BoxShape.circle,
+                  color: const Color(0xFFFFA726).withAlpha(75),
+                ),
+                child: ClipOval(
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.width * 0.8,
+                    width: MediaQuery.of(context).size.width * 0.45,
+                    height: MediaQuery.of(context).size.width * 0.45,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         shape: const CircleBorder(),
@@ -515,8 +511,7 @@ class _HomepageState extends State<Homepage> {
                           child: Text(
                             "$count",
                             style: TextStyle(
-                              fontSize:
-                                  200, // كبير لكن لا يشكل خطر لأن FittedBox يتحكم
+                              fontSize: 100,
                               color: Colors.grey[800],
                               fontWeight: FontWeight.bold,
                             ),
@@ -526,9 +521,6 @@ class _HomepageState extends State<Homepage> {
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 10,
               ),
             ],
           ),
