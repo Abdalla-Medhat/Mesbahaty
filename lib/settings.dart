@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:tasabeeh/homepage.dart';
+import 'package:tasabeeh/themes.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({super.key});
-
+  const Settings({super.key, this.onThemeChanged});
+  final Function(ThemeData)? onThemeChanged;
   @override
   State<Settings> createState() => _SettingsState();
 }
@@ -97,83 +99,155 @@ class _SettingsState extends State<Settings> {
                   icon: Icon(Icons.settings), label: 'settings'),
             ]),
         body: orientation == Orientation.portrait
-            ? Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height,
-                decoration: BoxDecoration(color: Colors.grey[800]),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.09,
-                    ),
-                    Card(
-                      elevation: 10,
-                      shadowColor: Colors.orange[900],
-                      margin: const EdgeInsets.all(10),
-                      child: ListTile(
-                        trailing: Switch(
-                            activeColor: Colors.orange,
-                            activeTrackColor: Colors.grey[700],
-                            value: status,
-                            onChanged: (value) {
-                              setState(() {
-                                status = value;
-                                saveStatus();
-                              });
-                            }),
-                        onTap: () {
-                          setState(() {
-                            status = !status;
-                            saveStatus();
-                          });
-                        },
-                        title: Text(
-                          "Tap the screen\nto increase the count.",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[800]),
-                        ),
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.09,
+                  ),
+                  Card(
+                    elevation: 10,
+                    shadowColor: Colors.orange[900],
+                    margin: const EdgeInsets.all(10),
+                    child: ListTile(
+                      trailing: Switch(
+                          value: status,
+                          onChanged: (value) {
+                            setState(() {
+                              status = value;
+                              saveStatus();
+                            });
+                          }),
+                      onTap: () {
+                        setState(() {
+                          status = !status;
+                          saveStatus();
+                        });
+                      },
+                      title: Text(
+                        "Tap the screen\nto increase the count.",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800]),
                       ),
                     ),
-                    Card(
-                      elevation: 10.0,
-                      shadowColor: Colors.orange[900],
-                      margin: const EdgeInsets.all(10),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.pushNamed(context, "about");
-                        },
-                        title: Text(
-                          "About us",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[800]),
+                  ),
+                  Card(
+                    elevation: 10.0,
+                    shadowColor: Colors.orange[900],
+                    margin: const EdgeInsets.all(10),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ListTile(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const Homepage(),
+                              ));
+                            },
+                            title: Text(
+                              "Choose theme",
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey[800]),
+                            ),
+                          ),
                         ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                          child: Row(
+                            children: [
+                              //Green Theme Circle
+                              GestureDetector(
+                                onTap: () {
+                                  widget.onThemeChanged!(AppThemes.greenTheme);
+                                },
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.08,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.08,
+                                  decoration: const BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Color(0XFF101827),
+                                          spreadRadius: 3)
+                                    ],
+                                    shape: BoxShape.circle,
+                                    color: Colors.green,
+                                  ),
+                                ),
+                              ),
+
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.05,
+                              ),
+                              //Golden Theme Circle
+                              GestureDetector(
+                                onTap: () {
+                                  widget.onThemeChanged!(AppThemes.goldenTheme);
+                                },
+                                child: Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.08,
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.08,
+                                  decoration: const BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Color(0XFF101827),
+                                          spreadRadius: 3)
+                                    ],
+                                    shape: BoxShape.circle,
+                                    color: Color(0xffF4A300),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Card(
+                    elevation: 10.0,
+                    shadowColor: Colors.orange[900],
+                    margin: const EdgeInsets.all(10),
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.pushNamed(context, "about");
+                      },
+                      title: Text(
+                        "About us",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800]),
                       ),
                     ),
-                    Card(
-                      elevation: 10.0,
-                      shadowColor: Colors.orange[900],
-                      margin: const EdgeInsets.all(10),
-                      child: ListTile(
-                        onTap: () {
-                          Navigator.pushNamed(context, "support");
-                        },
-                        title: Text(
-                          "Support us",
-                          style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[800]),
-                        ),
+                  ),
+                  Card(
+                    elevation: 10.0,
+                    shadowColor: Colors.orange[900],
+                    margin: const EdgeInsets.all(10),
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.pushNamed(context, "support");
+                      },
+                      title: Text(
+                        "Support us",
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey[800]),
                       ),
                     ),
-                  ],
-                ))
+                  ),
+                ],
+              )
             : ListView(children: [
                 Container(
                     width: double.infinity,
@@ -192,8 +266,8 @@ class _SettingsState extends State<Settings> {
                           margin: const EdgeInsets.all(10),
                           child: ListTile(
                             trailing: Switch(
-                                activeColor: Colors.orange,
-                                activeTrackColor: Colors.grey[700],
+                                // activeThumbColor: Colors.orange,
+                                // activeTrackColor: Colors.grey[700],
                                 value: status,
                                 onChanged: (value) {
                                   setState(() {

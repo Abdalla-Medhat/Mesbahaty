@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
 late Orientation? orientation;
+late Color primary;
 
 class Homepage extends StatefulWidget {
   final String? zekr;
@@ -74,11 +75,13 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     orientation = MediaQuery.of(context).orientation;
+    primary = Theme.of(context).colorScheme.primary;
+
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: index,
             unselectedFontSize: 15,
-            selectedItemColor: const Color(0xffF4A300),
+            selectedItemColor: primary,
             selectedFontSize: 17,
             iconSize: 27,
             selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
@@ -109,16 +112,15 @@ class _HomepageState extends State<Homepage> {
                         width: 80,
                         height: 40,
                         decoration: BoxDecoration(
-                          boxShadow: const [
+                          boxShadow: [
                             BoxShadow(
-                                color: Colors.black,
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
                                 blurRadius: 1.3,
-                                offset: Offset(0, 2),
+                                offset: const Offset(0, 2),
                                 spreadRadius: -0.10)
                           ],
-                          color: index == 1
-                              ? const Color(0xffF4A300)
-                              : Colors.grey[700],
+                          color: index == 1 ? primary : Colors.grey[700],
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
@@ -168,13 +170,11 @@ class _HomepageState extends State<Homepage> {
                   height: MediaQuery.of(context).size.height * 0.25,
                   margin: const EdgeInsets.only(top: 40),
                   decoration: BoxDecoration(
-                      color: const Color(0xFFF4A300),
+                      color: Theme.of(context).colorScheme.primaryContainer,
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                            color: const Color(0xFFF4A300).withAlpha(125),
-                            blurRadius: 25,
-                            spreadRadius: 1.5)
+                            color: primary, blurRadius: 25, spreadRadius: 1.5)
                       ]),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     const SizedBox(
@@ -185,8 +185,11 @@ class _HomepageState extends State<Homepage> {
                       child: Text(
                         widget.zekr ??
                             "You can add a zekr here from the Azkar page",
-                        style: const TextStyle(
-                            fontSize: 17, color: Color(0XFF101827)),
+                        style: TextStyle(
+                            fontSize: 17,
+                            color: Theme.of(context)
+                                .scaffoldBackgroundColor
+                                .withAlpha(200)),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 5,
                       ),
@@ -200,26 +203,19 @@ class _HomepageState extends State<Homepage> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFF4A300).withAlpha(125),
-                      blurRadius: 40,
-                      spreadRadius: 7,
+                      color: primary,
+                      blurRadius: 20,
+                      spreadRadius: 3,
                     ),
-                    BoxShadow(
-                        color: const Color(0xFFF4A300).withAlpha(100),
-                        blurRadius: 60,
-                        spreadRadius: 15)
+                    BoxShadow(color: primary, blurRadius: 30, spreadRadius: 10)
                   ],
                   shape: BoxShape.circle,
-                  color: const Color(0xFFFFA726).withAlpha(75),
+                  color: primary,
                 ),
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.7,
                   height: MediaQuery.of(context).size.width * 0.7,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      backgroundColor: const Color(0xffF4A300),
-                    ),
                     onPressed: () {
                       setState(() {
                         incrementCount();
@@ -232,7 +228,9 @@ class _HomepageState extends State<Homepage> {
                           "$count",
                           style: TextStyle(
                             fontSize: 100,
-                            color: Colors.grey[800],
+                            color: Theme.of(context)
+                                .scaffoldBackgroundColor
+                                .withAlpha(200),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -297,13 +295,13 @@ class _HomepageState extends State<Homepage> {
                         boxShadow: [
                           BoxShadow(
                             color: const Color(0xFFF4A300).withAlpha(125),
-                            blurRadius: 40,
-                            spreadRadius: 7,
+                            blurRadius: 20,
+                            spreadRadius: 3,
                           ),
                           BoxShadow(
                               color: const Color(0xFFF4A300).withAlpha(100),
-                              blurRadius: 60,
-                              spreadRadius: 15)
+                              blurRadius: 30,
+                              spreadRadius: 10)
                         ],
                         shape: BoxShape.circle,
                         color: const Color(0xFFFFA726).withAlpha(75),
@@ -313,10 +311,6 @@ class _HomepageState extends State<Homepage> {
                           width: MediaQuery.of(context).size.width * 0.45,
                           height: MediaQuery.of(context).size.width * 0.45,
                           child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              shape: const CircleBorder(),
-                              backgroundColor: const Color(0xffF4A300),
-                            ),
                             onPressed: () {
                               setState(() {
                                 incrementCount();
@@ -404,10 +398,6 @@ class _HomepageState extends State<Homepage> {
                   width: MediaQuery.of(context).size.width * 0.7,
                   height: MediaQuery.of(context).size.width * 0.7,
                   child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      backgroundColor: const Color(0xffF4A300),
-                    ),
                     onPressed: () {
                       setState(() {
                         incrementCount();
@@ -481,7 +471,7 @@ class _HomepageState extends State<Homepage> {
                     BoxShadow(
                       color: const Color(0xFFF4A300).withAlpha(125),
                       blurRadius: 20,
-                      spreadRadius: 5,
+                      spreadRadius: 3,
                     ),
                     BoxShadow(
                         color: const Color(0xFFF4A300).withAlpha(100),
@@ -496,10 +486,6 @@ class _HomepageState extends State<Homepage> {
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: MediaQuery.of(context).size.width * 0.45,
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        backgroundColor: const Color(0xffF4A300),
-                      ),
                       onPressed: () {
                         setState(() {
                           incrementCount();
