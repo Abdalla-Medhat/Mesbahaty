@@ -1091,12 +1091,13 @@ class _ZekrState extends State<Azkar> {
                                                         horizontal: 8),
                                                 child: Text(
                                                     textAlign: TextAlign.center,
-                                                    style: const TextStyle(
+                                                    style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15,
-                                                        color: Color.fromARGB(
-                                                            255, 255, 255, 255),
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .onPrimary,
                                                         overflow: TextOverflow
                                                             .ellipsis),
                                                     "${counterMap[azkar[index]] ?? 0}"),

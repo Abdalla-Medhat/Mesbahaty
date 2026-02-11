@@ -98,7 +98,7 @@ class _HomepageState extends State<Homepage> {
               currentIndex: index,
               unselectedFontSize: 15,
               backgroundColor: Theme.of(context).colorScheme.surface,
-              selectedItemColor: Theme.of(context).colorScheme.primary,
+              selectedItemColor: primary,
               unselectedItemColor:
                   Theme.of(context).colorScheme.onSurface.withAlpha(200),
               selectedFontSize: 17,
@@ -139,7 +139,12 @@ class _HomepageState extends State<Homepage> {
                                   offset: const Offset(0, 2),
                                   spreadRadius: -0.10)
                             ],
-                            color: index == 1 ? primary : Colors.grey[700],
+                            color: index == 1
+                                ? primary
+                                : Theme.of(context)
+                                    .colorScheme
+                                    .onSurface
+                                    .withAlpha(200),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Center(
@@ -149,8 +154,7 @@ class _HomepageState extends State<Homepage> {
                               fontWeight: index == 1
                                   ? FontWeight.bold
                                   : FontWeight.normal,
-                              color:
-                                  index == 1 ? Colors.grey[700] : Colors.white,
+                              color: Colors.white,
                               fontSize: index == 1 ? 15 : 13,
                             ),
                           )),
@@ -210,7 +214,11 @@ class _HomepageState extends State<Homepage> {
                       child: Text(
                         widget.zekr ??
                             "You can add a zekr here from the Azkar page",
-                        style: const TextStyle(
+                        style: TextStyle(
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onPrimaryContainer
+                              .withAlpha(230),
                           fontSize: 17,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -235,26 +243,35 @@ class _HomepageState extends State<Homepage> {
                   shape: BoxShape.circle,
                   color: primary,
                 ),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.65,
-                  height: MediaQuery.of(context).size.width * 0.65,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        incrementCount();
-                      });
-                    },
-                    child: Center(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                          "$count",
-                          style: TextStyle(
-                            fontSize: 100,
-                            color: Theme.of(context)
-                                .scaffoldBackgroundColor
-                                .withAlpha(230),
-                            fontWeight: FontWeight.bold,
+                child: ClipOval(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.65,
+                    height: MediaQuery.of(context).size.width * 0.65,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                        shape: const CircleBorder(),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          incrementCount();
+                        });
+                      },
+                      child: Center(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            "$count",
+                            style: TextStyle(
+                              fontSize: 100,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimary
+                                  .withAlpha(230),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
@@ -304,7 +321,12 @@ class _HomepageState extends State<Homepage> {
                           child: Text(
                             widget.zekr ??
                                 "You can add a zekr here from the Azkar page",
-                            style: const TextStyle(fontSize: 17),
+                            style: TextStyle(
+                                fontSize: 17,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer
+                                    .withAlpha(230)),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 3,
                           ),
@@ -336,6 +358,13 @@ class _HomepageState extends State<Homepage> {
                           width: MediaQuery.of(context).size.width * 0.45,
                           height: MediaQuery.of(context).size.width * 0.45,
                           child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              foregroundColor:
+                                  Theme.of(context).colorScheme.onPrimary,
+                              shape: const CircleBorder(),
+                            ),
                             onPressed: () {
                               setState(() {
                                 incrementCount();
@@ -349,7 +378,8 @@ class _HomepageState extends State<Homepage> {
                                   style: TextStyle(
                                     fontSize: 100,
                                     color: Theme.of(context)
-                                        .scaffoldBackgroundColor
+                                        .colorScheme
+                                        .onPrimary
                                         .withAlpha(230),
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -398,7 +428,12 @@ class _HomepageState extends State<Homepage> {
                     child: Text(
                       widget.zekr ??
                           "You can add a zekr here from the Azkar page",
-                      style: const TextStyle(fontSize: 17),
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onPrimaryContainer
+                              .withAlpha(230)),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 5,
                     ),
@@ -426,6 +461,11 @@ class _HomepageState extends State<Homepage> {
                   width: MediaQuery.of(context).size.width * 0.65,
                   height: MediaQuery.of(context).size.width * 0.65,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Theme.of(context).colorScheme.primary,
+                      foregroundColor: Theme.of(context).colorScheme.onPrimary,
+                      shape: const CircleBorder(),
+                    ),
                     onPressed: () {
                       setState(() {
                         incrementCount();
@@ -439,7 +479,8 @@ class _HomepageState extends State<Homepage> {
                           style: TextStyle(
                             fontSize: 100,
                             color: Theme.of(context)
-                                .scaffoldBackgroundColor
+                                .colorScheme
+                                .onPrimary
                                 .withAlpha(230),
                             fontWeight: FontWeight.bold,
                           ),
@@ -487,7 +528,11 @@ class _HomepageState extends State<Homepage> {
                       child: Text(
                         widget.zekr ??
                             "You can add a zekr here from the Azkar page",
-                        style: const TextStyle(fontSize: 17),
+                        style: TextStyle(
+                          fontSize: 17,
+                          color:
+                              Theme.of(context).colorScheme.onPrimaryContainer,
+                        ),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 3,
                       ),
@@ -517,6 +562,12 @@ class _HomepageState extends State<Homepage> {
                     width: MediaQuery.of(context).size.width * 0.45,
                     height: MediaQuery.of(context).size.width * 0.45,
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onPrimary,
+                        shape: const CircleBorder(),
+                      ),
                       onPressed: () {
                         setState(() {
                           incrementCount();
@@ -527,9 +578,8 @@ class _HomepageState extends State<Homepage> {
                           fit: BoxFit.scaleDown,
                           child: Text(
                             "$count",
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 100,
-                              color: Colors.grey[800],
                               fontWeight: FontWeight.bold,
                             ),
                           ),

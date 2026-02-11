@@ -81,7 +81,10 @@ class _SettingsState extends State<Settings> {
                                 offset: const Offset(0, 2),
                                 spreadRadius: -0.10)
                           ],
-                          color: Colors.grey[700],
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSurface
+                              .withAlpha(200),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
@@ -438,7 +441,6 @@ class _SettingsState extends State<Settings> {
                 Container(
                     width: double.infinity,
                     height: MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(color: Colors.grey[800]),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
