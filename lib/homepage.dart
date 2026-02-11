@@ -78,79 +78,95 @@ class _HomepageState extends State<Homepage> {
     primary = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: index,
-            unselectedFontSize: 15,
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            selectedItemColor: Theme.of(context).colorScheme.primary,
-            unselectedItemColor:
-                Theme.of(context).colorScheme.onSurface.withAlpha(200),
-            selectedFontSize: 17,
-            iconSize: 27,
-            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            onTap: (value) {
-              setState(() {
-                index = value;
-                if (index == 2) {
-                  Navigator.pushNamed(context, "settings");
-                } else if (index == 1) {
-                  Navigator.pushNamed(context, "azkar");
-                }
-              });
-            },
-            items: [
-              const BottomNavigationBarItem(
-                  icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: const EdgeInsets.only(top: 13, bottom: 4),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          index = 1;
-                        });
-                        Navigator.pushNamed(context, "azkar");
-                      },
-                      child: Container(
-                        width: 80,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                blurRadius: 1.3,
-                                offset: const Offset(0, 2),
-                                spreadRadius: -0.10)
-                          ],
-                          color: index == 1 ? primary : Colors.grey[700],
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Center(
-                            child: Text(
-                          "Azkar",
-                          style: TextStyle(
-                            fontWeight: index == 1
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            color: index == 1 ? Colors.grey[700] : Colors.white,
-                            fontSize: index == 1 ? 15 : 13,
+        extendBody: false,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).colorScheme.secondary,
+                blurRadius: 7,
+                spreadRadius: 0.5,
+              ),
+              BoxShadow(
+                color: Theme.of(context).colorScheme.secondary,
+                blurRadius: 15,
+                spreadRadius: 2,
+              )
+            ],
+          ),
+          child: BottomNavigationBar(
+              currentIndex: index,
+              unselectedFontSize: 15,
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              selectedItemColor: Theme.of(context).colorScheme.primary,
+              unselectedItemColor:
+                  Theme.of(context).colorScheme.onSurface.withAlpha(200),
+              selectedFontSize: 17,
+              iconSize: 27,
+              selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              onTap: (value) {
+                setState(() {
+                  index = value;
+                  if (index == 2) {
+                    Navigator.pushNamed(context, "settings");
+                  } else if (index == 1) {
+                    Navigator.pushNamed(context, "azkar");
+                  }
+                });
+              },
+              items: [
+                const BottomNavigationBarItem(
+                    icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Padding(
+                      padding: const EdgeInsets.only(top: 13, bottom: 4),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            index = 1;
+                          });
+                          Navigator.pushNamed(context, "azkar");
+                        },
+                        child: Container(
+                          width: 80,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  blurRadius: 1.3,
+                                  offset: const Offset(0, 2),
+                                  spreadRadius: -0.10)
+                            ],
+                            color: index == 1 ? primary : Colors.grey[700],
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                        )),
+                          child: Center(
+                              child: Text(
+                            "Azkar",
+                            style: TextStyle(
+                              fontWeight: index == 1
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color:
+                                  index == 1 ? Colors.grey[700] : Colors.white,
+                              fontSize: index == 1 ? 15 : 13,
+                            ),
+                          )),
+                        ),
                       ),
                     ),
-                  ),
-                  label: ''),
-              const BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), label: 'settings'),
-            ]),
+                    label: ''),
+                const BottomNavigationBarItem(
+                    icon: Icon(Icons.settings), label: 'settings'),
+              ]),
+        ),
         body: Column(
           children: [
             Expanded(
               child: clickablePage == null
-                  ? const Center(
-                      child:
-                          CircularProgressIndicator(color: Color(0xffF4A300)))
+                  ? Center(child: CircularProgressIndicator(color: primary))
                   : mainContent(),
             ),
           ],
@@ -177,9 +193,13 @@ class _HomepageState extends State<Homepage> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
+                          color: Theme.of(context).colorScheme.secondary,
+                          blurRadius: 7,
+                        ),
+                        BoxShadow(
                             color: Theme.of(context).colorScheme.secondary,
-                            blurRadius: 25,
-                            spreadRadius: 1.5)
+                            blurRadius: 20,
+                            spreadRadius: 2)
                       ]),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     const SizedBox(
@@ -207,17 +227,17 @@ class _HomepageState extends State<Homepage> {
                   boxShadow: [
                     BoxShadow(
                       color: primary,
-                      blurRadius: 20,
-                      spreadRadius: 3,
+                      blurRadius: 10,
+                      spreadRadius: 1.5,
                     ),
-                    BoxShadow(color: primary, blurRadius: 30, spreadRadius: 10)
+                    BoxShadow(color: primary, blurRadius: 30, spreadRadius: 3)
                   ],
                   shape: BoxShape.circle,
                   color: primary,
                 ),
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  height: MediaQuery.of(context).size.width * 0.7,
+                  width: MediaQuery.of(context).size.width * 0.65,
+                  height: MediaQuery.of(context).size.width * 0.65,
                   child: ElevatedButton(
                     onPressed: () {
                       setState(() {
@@ -233,7 +253,7 @@ class _HomepageState extends State<Homepage> {
                             fontSize: 100,
                             color: Theme.of(context)
                                 .scaffoldBackgroundColor
-                                .withAlpha(200),
+                                .withAlpha(230),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -243,7 +263,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.05,
+                height: MediaQuery.of(context).size.height * 0.08,
               ),
             ],
           ),
@@ -267,9 +287,13 @@ class _HomepageState extends State<Homepage> {
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                                color: const Color(0xFFF4A300).withAlpha(125),
-                                blurRadius: 25,
-                                spreadRadius: 1.5)
+                              color: Theme.of(context).colorScheme.secondary,
+                              blurRadius: 7,
+                            ),
+                            BoxShadow(
+                                color: Theme.of(context).colorScheme.secondary,
+                                blurRadius: 20,
+                                spreadRadius: 2)
                           ]),
                       child: Column(mainAxisSize: MainAxisSize.min, children: [
                         const SizedBox(
@@ -297,17 +321,15 @@ class _HomepageState extends State<Homepage> {
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFFF4A300).withAlpha(125),
-                            blurRadius: 20,
-                            spreadRadius: 3,
+                            color: primary,
+                            blurRadius: 10,
+                            spreadRadius: 1.5,
                           ),
                           BoxShadow(
-                              color: const Color(0xFFF4A300).withAlpha(100),
-                              blurRadius: 30,
-                              spreadRadius: 10)
+                              color: primary, blurRadius: 30, spreadRadius: 3)
                         ],
                         shape: BoxShape.circle,
-                        color: const Color(0xFFFFA726).withAlpha(75),
+                        color: primary,
                       ),
                       child: ClipOval(
                         child: SizedBox(
@@ -326,7 +348,9 @@ class _HomepageState extends State<Homepage> {
                                   "$count",
                                   style: TextStyle(
                                     fontSize: 100,
-                                    color: Colors.grey[800],
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor
+                                        .withAlpha(230),
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -357,9 +381,13 @@ class _HomepageState extends State<Homepage> {
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
-                          color: const Color(0xFFF4A300).withAlpha(125),
-                          blurRadius: 25,
-                          spreadRadius: 1.5)
+                        color: Theme.of(context).colorScheme.secondary,
+                        blurRadius: 7,
+                      ),
+                      BoxShadow(
+                          color: Theme.of(context).colorScheme.secondary,
+                          blurRadius: 20,
+                          spreadRadius: 2)
                     ]),
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
                   const SizedBox(
@@ -384,22 +412,19 @@ class _HomepageState extends State<Homepage> {
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFFF4A300).withAlpha(125),
-                    blurRadius: 20,
-                    spreadRadius: 3,
+                    color: primary,
+                    blurRadius: 10,
+                    spreadRadius: 1.5,
                   ),
-                  BoxShadow(
-                      color: const Color(0xFFF4A300).withAlpha(100),
-                      blurRadius: 30,
-                      spreadRadius: 10)
+                  BoxShadow(color: primary, blurRadius: 30, spreadRadius: 3)
                 ],
                 shape: BoxShape.circle,
-                color: const Color(0xFFFFA726).withAlpha(75),
+                color: primary,
               ),
               child: ClipOval(
                 child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  height: MediaQuery.of(context).size.width * 0.7,
+                  width: MediaQuery.of(context).size.width * 0.65,
+                  height: MediaQuery.of(context).size.width * 0.65,
                   child: ElevatedButton(
                     onPressed: () {
                       setState(() {
@@ -413,7 +438,9 @@ class _HomepageState extends State<Homepage> {
                           "$count",
                           style: TextStyle(
                             fontSize: 100,
-                            color: Colors.grey[800],
+                            color: Theme.of(context)
+                                .scaffoldBackgroundColor
+                                .withAlpha(230),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -424,7 +451,7 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.05,
+              height: MediaQuery.of(context).size.height * 0.08,
             ),
           ],
         );
@@ -443,9 +470,13 @@ class _HomepageState extends State<Homepage> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                            color: const Color(0xFFF4A300).withAlpha(125),
-                            blurRadius: 25,
-                            spreadRadius: 1.5)
+                          color: Theme.of(context).colorScheme.secondary,
+                          blurRadius: 7,
+                        ),
+                        BoxShadow(
+                            color: Theme.of(context).colorScheme.secondary,
+                            blurRadius: 20,
+                            spreadRadius: 2)
                       ]),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     const SizedBox(
@@ -472,17 +503,14 @@ class _HomepageState extends State<Homepage> {
                 decoration: BoxDecoration(
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFFF4A300).withAlpha(125),
-                      blurRadius: 20,
-                      spreadRadius: 3,
+                      color: primary,
+                      blurRadius: 10,
+                      spreadRadius: 1.5,
                     ),
-                    BoxShadow(
-                        color: const Color(0xFFF4A300).withAlpha(100),
-                        blurRadius: 30,
-                        spreadRadius: 10)
+                    BoxShadow(color: primary, blurRadius: 30, spreadRadius: 3)
                   ],
                   shape: BoxShape.circle,
-                  color: const Color(0xFFFFA726).withAlpha(75),
+                  color: primary,
                 ),
                 child: ClipOval(
                   child: SizedBox(
