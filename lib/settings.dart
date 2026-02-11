@@ -41,7 +41,10 @@ class _SettingsState extends State<Settings> {
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: index,
             unselectedFontSize: 15,
-            selectedItemColor: Colors.orange,
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            selectedItemColor: Theme.of(context).colorScheme.primary,
+            unselectedItemColor:
+                Theme.of(context).colorScheme.onSurface.withAlpha(200),
             selectedFontSize: 17,
             iconSize: 27,
             selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
@@ -70,14 +73,15 @@ class _SettingsState extends State<Settings> {
                         width: 80,
                         height: 40,
                         decoration: BoxDecoration(
-                          boxShadow: const [
+                          boxShadow: [
                             BoxShadow(
-                                color: Colors.black,
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
                                 blurRadius: 1.3,
-                                offset: Offset(0, 2),
+                                offset: const Offset(0, 2),
                                 spreadRadius: -0.10)
                           ],
-                          color: index == 1 ? Colors.orange : Colors.grey[700],
+                          color: Colors.grey[700],
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Center(
@@ -87,8 +91,8 @@ class _SettingsState extends State<Settings> {
                             fontWeight: index == 1
                                 ? FontWeight.bold
                                 : FontWeight.normal,
-                            color: index == 1 ? Colors.grey[700] : Colors.white,
-                            fontSize: index == 1 ? 15 : 13,
+                            color: Colors.white,
+                            fontSize: 13,
                           ),
                         )),
                       ),
@@ -106,143 +110,325 @@ class _SettingsState extends State<Settings> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.09,
                   ),
-                  Card(
-                    elevation: 10,
-                    shadowColor: Colors.orange[900],
-                    margin: const EdgeInsets.all(10),
-                    child: ListTile(
-                      trailing: Switch(
-                          value: status,
-                          onChanged: (value) {
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(200),
+                            blurRadius: 7,
+                            spreadRadius: -10,
+                            offset: const Offset(0, 5),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(128),
+                            blurRadius: 15,
+                            spreadRadius: -10,
+                            offset: const Offset(0, 5),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(76),
+                            blurRadius: 25,
+                            spreadRadius: -10,
+                            // offset: const Offset(0, 5),
+                          ),
+                        ]),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withAlpha(200),
+                              blurRadius: 7,
+                              spreadRadius: -10,
+                              offset: const Offset(0, 5),
+                            ),
+                            BoxShadow(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withAlpha(128),
+                              blurRadius: 15,
+                              spreadRadius: -10,
+                              offset: const Offset(0, 5),
+                            ),
+                            BoxShadow(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withAlpha(76),
+                              blurRadius: 25,
+                              spreadRadius: -10,
+                            ),
+                          ]),
+                      child: Card(
+                        color: Theme.of(context).colorScheme.primaryContainer,
+                        elevation: 15,
+                        shadowColor: Theme.of(context).colorScheme.primary,
+                        margin: const EdgeInsets.all(10),
+                        child: ListTile(
+                          trailing: Switch(
+                              value: status,
+                              onChanged: (value) {
+                                setState(() {
+                                  status = value;
+                                  saveStatus();
+                                });
+                              }),
+                          onTap: () {
                             setState(() {
-                              status = value;
+                              status = !status;
                               saveStatus();
                             });
-                          }),
-                      onTap: () {
-                        setState(() {
-                          status = !status;
-                          saveStatus();
-                        });
-                      },
-                      title: Text(
-                        "Tap the screen\nto increase the count.",
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[800]),
-                      ),
-                    ),
-                  ),
-                  Card(
-                    elevation: 10.0,
-                    shadowColor: Colors.orange[900],
-                    margin: const EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: ListTile(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const Homepage(),
-                              ));
-                            },
-                            title: Text(
-                              "Choose theme",
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[800]),
+                          },
+                          title: Text(
+                            "Tap the screen\nto increase the count.",
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onPrimaryContainer,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                          child: Row(
-                            children: [
-                              //Green Theme Circle
-                              GestureDetector(
-                                onTap: () {
-                                  widget.onThemeChanged!(AppThemes.greenTheme);
-                                },
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.08,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.08,
-                                  decoration: const BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Color(0XFF101827),
-                                          spreadRadius: 3)
-                                    ],
-                                    shape: BoxShape.circle,
-                                    color: Colors.green,
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.05,
-                              ),
-                              //Golden Theme Circle
-                              GestureDetector(
-                                onTap: () {
-                                  widget.onThemeChanged!(AppThemes.goldenTheme);
-                                },
-                                child: Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.08,
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.08,
-                                  decoration: const BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                          color: Color(0XFF101827),
-                                          spreadRadius: 3)
-                                    ],
-                                    shape: BoxShape.circle,
-                                    color: Color(0xffF4A300),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Card(
-                    elevation: 10.0,
-                    shadowColor: Colors.orange[900],
-                    margin: const EdgeInsets.all(10),
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.pushNamed(context, "about");
-                      },
-                      title: Text(
-                        "About us",
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[800]),
                       ),
                     ),
                   ),
-                  Card(
-                    elevation: 10.0,
-                    shadowColor: Colors.orange[900],
-                    margin: const EdgeInsets.all(10),
-                    child: ListTile(
-                      onTap: () {
-                        Navigator.pushNamed(context, "support");
-                      },
-                      title: Text(
-                        "Support us",
-                        style: TextStyle(
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(200),
+                            blurRadius: 7,
+                            spreadRadius: -10,
+                            offset: const Offset(0, 5),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(128),
+                            blurRadius: 15,
+                            spreadRadius: -10,
+                            offset: const Offset(0, 5),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(76),
+                            blurRadius: 25,
+                            spreadRadius: -10,
+                            // offset: const Offset(0, 5),
+                          ),
+                        ]),
+                    child: Card(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      elevation: 10.0,
+                      shadowColor: Theme.of(context).colorScheme.primary,
+                      margin: const EdgeInsets.all(10),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const Homepage(),
+                                ));
+                              },
+                              title: Text(
+                                "Choose theme",
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Row(
+                              children: [
+                                //Green Theme Circle
+                                GestureDetector(
+                                  onTap: () {
+                                    widget
+                                        .onThemeChanged!(AppThemes.greenTheme);
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.08,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.08,
+                                    decoration: const BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Color(0XFF101827),
+                                            spreadRadius: 3)
+                                      ],
+                                      shape: BoxShape.circle,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                ),
+
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.05,
+                                ),
+                                //Golden Theme Circle
+                                GestureDetector(
+                                  onTap: () {
+                                    widget
+                                        .onThemeChanged!(AppThemes.goldenTheme);
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width *
+                                        0.08,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.08,
+                                    decoration: const BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Color(0XFF101827),
+                                            spreadRadius: 3)
+                                      ],
+                                      shape: BoxShape.circle,
+                                      color: Color(0xffF4A300),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(200),
+                            blurRadius: 7,
+                            spreadRadius: -10,
+                            offset: const Offset(0, 5),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(128),
+                            blurRadius: 15,
+                            spreadRadius: -10,
+                            offset: const Offset(0, 5),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(76),
+                            blurRadius: 25,
+                            spreadRadius: -10,
+                          ),
+                        ]),
+                    child: Card(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      elevation: 10.0,
+                      shadowColor: Theme.of(context).colorScheme.primary,
+                      margin: const EdgeInsets.all(10),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, "about");
+                        },
+                        title: Text(
+                          "About us",
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
-                            color: Colors.grey[800]),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(200),
+                            blurRadius: 7,
+                            spreadRadius: -10,
+                            offset: const Offset(0, 5),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(128),
+                            blurRadius: 15,
+                            spreadRadius: -10,
+                            offset: const Offset(0, 5),
+                          ),
+                          BoxShadow(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(76),
+                            blurRadius: 25,
+                            spreadRadius: -10,
+                          ),
+                        ]),
+                    child: Card(
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      elevation: 10.0,
+                      shadowColor: Theme.of(context).colorScheme.primary,
+                      margin: const EdgeInsets.all(10),
+                      child: ListTile(
+                        onTap: () {
+                          Navigator.pushNamed(context, "support");
+                        },
+                        title: Text(
+                          "Support us",
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -260,67 +446,306 @@ class _SettingsState extends State<Settings> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.04,
                         ),
-                        Card(
-                          elevation: 10,
-                          shadowColor: Colors.orange[900],
-                          margin: const EdgeInsets.all(10),
-                          child: ListTile(
-                            trailing: Switch(
-                                // activeThumbColor: Colors.orange,
-                                // activeTrackColor: Colors.grey[700],
-                                value: status,
-                                onChanged: (value) {
-                                  setState(() {
-                                    status = value;
-                                    saveStatus();
-                                  });
-                                }),
-                            onTap: () {
-                              setState(() {
-                                status = !status;
-                                saveStatus();
-                              });
-                            },
-                            title: Text(
-                              "Tap the screen\nto increase the count.",
-                              style: TextStyle(
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(200),
+                                  blurRadius: 7,
+                                  spreadRadius: -10,
+                                  offset: const Offset(0, 5),
+                                ),
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(128),
+                                  blurRadius: 15,
+                                  spreadRadius: -10,
+                                  offset: const Offset(0, 5),
+                                ),
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(76),
+                                  blurRadius: 25,
+                                  spreadRadius: -10,
+                                ),
+                              ]),
+                          child: Card(
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            elevation: 10,
+                            shadowColor: Theme.of(context).colorScheme.primary,
+                            margin: const EdgeInsets.all(10),
+                            child: ListTile(
+                              trailing: Switch(
+                                  value: status,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      status = value;
+                                      saveStatus();
+                                    });
+                                  }),
+                              onTap: () {
+                                setState(() {
+                                  status = !status;
+                                  saveStatus();
+                                });
+                              },
+                              title: Text(
+                                "Tap the screen\nto increase the count.",
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.grey[800]),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        Card(
-                          elevation: 10.0,
-                          shadowColor: Colors.orange[900],
-                          margin: const EdgeInsets.all(10),
-                          child: ListTile(
-                            onTap: () {
-                              Navigator.pushNamed(context, "about");
-                            },
-                            title: Text(
-                              "About us",
-                              style: TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.grey[800]),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(200),
+                                  blurRadius: 7,
+                                  spreadRadius: -10,
+                                  offset: const Offset(0, 5),
+                                ),
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(128),
+                                  blurRadius: 15,
+                                  spreadRadius: -10,
+                                  offset: const Offset(0, 5),
+                                ),
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(76),
+                                  blurRadius: 25,
+                                  spreadRadius: -10,
+                                  // offset: const Offset(0, 5),
+                                ),
+                              ]),
+                          child: Card(
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            elevation: 10.0,
+                            shadowColor: Theme.of(context).colorScheme.primary,
+                            margin: const EdgeInsets.all(10),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: ListTile(
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                        builder: (context) => const Homepage(),
+                                      ));
+                                    },
+                                    title: Text(
+                                      "Choose theme",
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .onPrimaryContainer,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30.0),
+                                  child: Row(
+                                    children: [
+                                      //Green Theme Circle
+                                      GestureDetector(
+                                        onTap: () {
+                                          widget.onThemeChanged!(
+                                              AppThemes.greenTheme);
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.1,
+                                          decoration: const BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Color(0XFF101827),
+                                                  spreadRadius: 3)
+                                            ],
+                                            shape: BoxShape.circle,
+                                            color: Colors.green,
+                                          ),
+                                        ),
+                                      ),
+
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.03,
+                                      ),
+                                      //Golden Theme Circle
+                                      GestureDetector(
+                                        onTap: () {
+                                          widget.onThemeChanged!(
+                                              AppThemes.goldenTheme);
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.1,
+                                          decoration: const BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Color(0XFF101827),
+                                                  spreadRadius: 3)
+                                            ],
+                                            shape: BoxShape.circle,
+                                            color: Color(0xffF4A300),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                        Card(
-                          elevation: 10.0,
-                          shadowColor: Colors.orange[900],
-                          margin: const EdgeInsets.all(10),
-                          child: ListTile(
-                            onTap: () {
-                              Navigator.pushNamed(context, "support");
-                            },
-                            title: Text(
-                              "Support us",
-                              style: TextStyle(
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(200),
+                                  blurRadius: 7,
+                                  spreadRadius: -10,
+                                  offset: const Offset(0, 5),
+                                ),
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(128),
+                                  blurRadius: 15,
+                                  spreadRadius: -10,
+                                  offset: const Offset(0, 5),
+                                ),
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(76),
+                                  blurRadius: 25,
+                                  spreadRadius: -10,
+                                ),
+                              ]),
+                          child: Card(
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            elevation: 10.0,
+                            shadowColor: Theme.of(context).colorScheme.primary,
+                            margin: const EdgeInsets.all(10),
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.pushNamed(context, "about");
+                              },
+                              title: Text(
+                                "About us",
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.grey[800]),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(200),
+                                  blurRadius: 7,
+                                  spreadRadius: -10,
+                                  offset: const Offset(0, 5),
+                                ),
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(128),
+                                  blurRadius: 15,
+                                  spreadRadius: -10,
+                                  offset: const Offset(0, 5),
+                                ),
+                                BoxShadow(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withAlpha(76),
+                                  blurRadius: 25,
+                                  spreadRadius: -10,
+                                ),
+                              ]),
+                          child: Card(
+                            color:
+                                Theme.of(context).colorScheme.primaryContainer,
+                            elevation: 10.0,
+                            shadowColor: Theme.of(context).colorScheme.primary,
+                            margin: const EdgeInsets.all(10),
+                            child: ListTile(
+                              onTap: () {
+                                Navigator.pushNamed(context, "support");
+                              },
+                              title: Text(
+                                "Support us",
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ),
                         ),

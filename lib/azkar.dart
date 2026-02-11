@@ -90,7 +90,10 @@ class _ZekrState extends State<Azkar> {
             bottomNavigationBar: BottomNavigationBar(
                 currentIndex: index,
                 unselectedFontSize: 15,
-                selectedItemColor: primary,
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                selectedItemColor: Theme.of(context).colorScheme.primary,
+                unselectedItemColor:
+                    Theme.of(context).colorScheme.onSurface.withAlpha(200),
                 selectedFontSize: 17,
                 iconSize: 27,
                 selectedLabelStyle:
@@ -176,9 +179,11 @@ class _ZekrState extends State<Azkar> {
                           ),
                           backgroundColor: primary,
                         ),
-                        child: const Text("Add Zekr",
-                            style:
-                                TextStyle(fontSize: 20, color: Colors.white))),
+                        child: Text("Add Zekr",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color:
+                                    Theme.of(context).colorScheme.onPrimary))),
                   ),
                 ),
                 Expanded(
@@ -226,6 +231,9 @@ class _ZekrState extends State<Azkar> {
                             ],
                           ),
                           child: Card(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               elevation: 15.0,
                               shadowColor: Theme.of(context)
                                   .colorScheme
@@ -543,9 +551,21 @@ class _ZekrState extends State<Azkar> {
                                                   height: size,
                                                   width: size,
                                                   decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: primary,
-                                                  ),
+                                                      shape: BoxShape.circle,
+                                                      color: primary,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .colorScheme
+                                                                .secondary
+                                                                .withAlpha(180),
+                                                            blurRadius: 4,
+                                                            spreadRadius: 1.5,
+                                                            offset:
+                                                                const Offset(
+                                                                    0, 3))
+                                                      ]),
                                                   padding: const EdgeInsets
                                                       .symmetric(horizontal: 8),
                                                   margin: const EdgeInsets
@@ -553,8 +573,11 @@ class _ZekrState extends State<Azkar> {
                                                   child: Text(
                                                       textAlign:
                                                           TextAlign.center,
-                                                      style: const TextStyle(
-                                                          color: Colors.white,
+                                                      style: TextStyle(
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .colorScheme
+                                                                  .onPrimary,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                           fontSize: 15,
@@ -582,9 +605,12 @@ class _ZekrState extends State<Azkar> {
         : Scaffold(
             bottomNavigationBar: BottomNavigationBar(
                 currentIndex: index,
-                unselectedFontSize: 15,
-                selectedItemColor: const Color(0xFFF4A300),
                 selectedFontSize: 17,
+                unselectedFontSize: 15,
+                backgroundColor: Theme.of(context).colorScheme.surface,
+                selectedItemColor: Theme.of(context).colorScheme.primary,
+                unselectedItemColor:
+                    Theme.of(context).colorScheme.onSurface.withAlpha(200),
                 iconSize: 27,
                 selectedLabelStyle:
                     const TextStyle(fontWeight: FontWeight.bold),
@@ -615,16 +641,15 @@ class _ZekrState extends State<Azkar> {
                             width: 80,
                             height: 40,
                             decoration: BoxDecoration(
-                              boxShadow: const [
+                              boxShadow: [
                                 BoxShadow(
-                                    color: Colors.black,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
                                     blurRadius: 1.3,
-                                    offset: Offset(0, 2),
+                                    offset: const Offset(0, 2),
                                     spreadRadius: -0.10)
                               ],
-                              color: index == 1
-                                  ? const Color(0xFFF4A300)
-                                  : Colors.grey[700],
+                              color: index == 1 ? primary : Colors.grey[700],
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Center(
@@ -634,9 +659,7 @@ class _ZekrState extends State<Azkar> {
                                 fontWeight: index == 1
                                     ? FontWeight.bold
                                     : FontWeight.normal,
-                                color: index == 1
-                                    ? Colors.grey[700]
-                                    : Colors.white,
+                                color: Colors.white,
                                 fontSize: index == 1 ? 15 : 13,
                               ),
                             )),
@@ -652,18 +675,32 @@ class _ZekrState extends State<Azkar> {
                 Padding(
                   padding: const EdgeInsets.only(
                       top: 70, left: 85, right: 50, bottom: 10),
-                  child: MaterialButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      height: 50,
-                      minWidth: 200,
-                      onPressed: () {
-                        Navigator.pushNamed(context, "addzekr");
-                      },
-                      color: const Color(0xFFF4A300),
-                      child: const Text("Add Zekr",
-                          style: TextStyle(fontSize: 20))),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.135,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                            color: primary, blurRadius: 25, spreadRadius: 1.5)
+                      ],
+                    ),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, "addzekr");
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          backgroundColor: primary,
+                        ),
+                        child: Text("Add Zekr",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color:
+                                    Theme.of(context).colorScheme.onPrimary))),
+                  ),
                 ),
                 Expanded(
                   child: ListView.builder(
@@ -678,12 +715,47 @@ class _ZekrState extends State<Azkar> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 18),
-                        child: SizedBox(
+                        child: Container(
                           width: MediaQuery.of(context).size.width * 0.5,
                           height: MediaQuery.of(context).size.height * 0.46,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withAlpha(200),
+                                blurRadius: 20,
+                                spreadRadius: 2,
+                              ),
+                              BoxShadow(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withAlpha(128),
+                                blurRadius: 40,
+                                spreadRadius: 6,
+                              ),
+                              BoxShadow(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .primary
+                                    .withAlpha(76),
+                                blurRadius: 60,
+                                spreadRadius: 12,
+                              ),
+                            ],
+                          ),
                           child: Card(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .primaryContainer,
                               elevation: 8.0,
-                              shadowColor: const Color(0xFFF4A300),
+                              shadowColor: Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withAlpha(240),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
@@ -693,9 +765,12 @@ class _ZekrState extends State<Azkar> {
                                       child: Text(
                                         textAlign: TextAlign.start,
                                         textDirection: TextDirection.ltr,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer,
                                         ),
                                         azkar[index],
                                         maxLines: 3,
@@ -718,16 +793,17 @@ class _ZekrState extends State<Azkar> {
                                                 ),
                                                 elevation: 6.0,
                                                 foregroundColor:
-                                                    const Color.fromARGB(
-                                                        255, 66, 66, 66),
-                                                shadowColor:
-                                                    const Color(0xFFF4A300),
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .onPrimary,
+                                                shadowColor: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),
-                                                backgroundColor:
-                                                    const Color(0xFFF4A300),
+                                                backgroundColor: primary,
                                                 minimumSize: const Size(65, 40),
                                                 maximumSize:
                                                     const Size(100, 50),
@@ -751,16 +827,17 @@ class _ZekrState extends State<Azkar> {
                                                 ),
                                                 elevation: 6.0,
                                                 foregroundColor:
-                                                    const Color.fromARGB(
-                                                        255, 66, 66, 66),
-                                                shadowColor:
-                                                    const Color(0xFFF4A300),
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .onPrimary,
+                                                shadowColor: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),
-                                                backgroundColor:
-                                                    const Color(0xFFF4A300),
+                                                backgroundColor: primary,
                                                 minimumSize: const Size(65, 40),
                                                 maximumSize:
                                                     const Size(100, 50),
@@ -784,16 +861,17 @@ class _ZekrState extends State<Azkar> {
                                                 ),
                                                 elevation: 6.0,
                                                 foregroundColor:
-                                                    const Color.fromARGB(
-                                                        255, 66, 66, 66),
-                                                shadowColor:
-                                                    const Color(0xFFF4A300),
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .onPrimary,
+                                                shadowColor: Theme.of(context)
+                                                    .colorScheme
+                                                    .secondary,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                 ),
-                                                backgroundColor:
-                                                    const Color(0xFFF4A300),
+                                                backgroundColor: primary,
                                                 minimumSize: const Size(65, 40),
                                                 maximumSize:
                                                     const Size(100, 50),
@@ -805,16 +883,22 @@ class _ZekrState extends State<Azkar> {
 
                                                 AwesomeDialog(
                                                   context: context,
+                                                  dialogBackgroundColor:
+                                                      Theme.of(context)
+                                                          .colorScheme
+                                                          .secondary
+                                                          .withAlpha(220),
                                                   width: MediaQuery.of(context)
                                                           .size
                                                           .width *
                                                       0.8,
-                                                  title: 'Set Count',
-                                                  titleTextStyle:
-                                                      const TextStyle(
+                                                  title: 'Set Counter',
+                                                  titleTextStyle: TextStyle(
                                                     fontSize: 20,
                                                     fontWeight: FontWeight.bold,
-                                                    color: Color(0xFFF4A300),
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .secondary,
                                                   ),
                                                   customHeader: Container(
                                                     alignment: Alignment.center,
@@ -829,44 +913,50 @@ class _ZekrState extends State<Azkar> {
                                                                 .shortestSide *
                                                             0.5,
                                                     decoration: BoxDecoration(
-                                                      color: const Color(
-                                                          0xFFF4A300),
+                                                      color: Theme.of(context)
+                                                          .colorScheme
+                                                          .secondary,
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               70),
                                                     ),
-                                                    child: const FittedBox(
+                                                    child: FittedBox(
                                                       fit: BoxFit.scaleDown,
                                                       child: Icon(
                                                         Icons.info,
                                                         size: 300,
-                                                        color: Colors.white,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .onPrimary,
                                                       ),
                                                     ),
                                                   ),
                                                   body: Column(
                                                     children: [
-                                                      const Padding(
+                                                      Padding(
                                                         padding:
-                                                            EdgeInsets.all(8.0),
+                                                            const EdgeInsets
+                                                                .all(8.0),
                                                         child: Text(
-                                                          "Set Count",
+                                                          "Set Counter",
                                                           style: TextStyle(
                                                               fontSize: 18,
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold,
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      41,
-                                                                      41,
-                                                                      41)),
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .onPrimary),
                                                         ),
                                                       ),
                                                       Row(
                                                         children: [
-                                                          const Icon(
+                                                          Icon(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .secondaryContainer,
                                                               Icons.edit_note,
                                                               size: 40),
                                                           Form(
@@ -879,6 +969,14 @@ class _ZekrState extends State<Azkar> {
                                                                   0.6,
                                                               child:
                                                                   TextFormField(
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color:
+                                                                        primary),
                                                                 controller:
                                                                     setController,
                                                                 validator:
@@ -905,9 +1003,12 @@ class _ZekrState extends State<Azkar> {
                                                                 decoration:
                                                                     InputDecoration(
                                                                   filled: true,
-                                                                  fillColor:
-                                                                      Colors.grey[
-                                                                          300],
+                                                                  fillColor: Theme.of(
+                                                                          context)
+                                                                      .colorScheme
+                                                                      .secondaryContainer
+                                                                      .withAlpha(
+                                                                          220),
                                                                   enabledBorder:
                                                                       const OutlineInputBorder(
                                                                           borderSide:
@@ -927,8 +1028,15 @@ class _ZekrState extends State<Azkar> {
                                                     ],
                                                   ),
                                                   btnOkText: "Save",
-                                                  btnOkColor:
-                                                      const Color(0xFFF4A300),
+                                                  buttonsTextStyle: TextStyle(
+                                                    color: primary,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
+                                                  btnOkColor: Theme.of(context)
+                                                      .colorScheme
+                                                      .secondaryContainer
+                                                      .withAlpha(220),
                                                   btnOkOnPress: () {
                                                     if (formKey.currentState!
                                                         .validate()) {
@@ -960,10 +1068,21 @@ class _ZekrState extends State<Azkar> {
                                                 alignment: Alignment.center,
                                                 height: size,
                                                 width: size,
-                                                decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Color(0xFFF4A300),
-                                                ),
+                                                decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: primary,
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .colorScheme
+                                                              .secondary
+                                                              .withAlpha(180),
+                                                          blurRadius: 4,
+                                                          spreadRadius: 1.5,
+                                                          offset: const Offset(
+                                                              0, 3))
+                                                    ]),
                                                 padding:
                                                     const EdgeInsets.symmetric(
                                                         horizontal: 8),
@@ -976,6 +1095,8 @@ class _ZekrState extends State<Azkar> {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 15,
+                                                        color: Color.fromARGB(
+                                                            255, 255, 255, 255),
                                                         overflow: TextOverflow
                                                             .ellipsis),
                                                     "${counterMap[azkar[index]] ?? 0}"),

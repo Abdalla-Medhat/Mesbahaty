@@ -81,7 +81,10 @@ class _HomepageState extends State<Homepage> {
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: index,
             unselectedFontSize: 15,
-            selectedItemColor: primary,
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            selectedItemColor: Theme.of(context).colorScheme.primary,
+            unselectedItemColor:
+                Theme.of(context).colorScheme.onSurface.withAlpha(200),
             selectedFontSize: 17,
             iconSize: 27,
             selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
@@ -174,7 +177,9 @@ class _HomepageState extends State<Homepage> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                            color: primary, blurRadius: 25, spreadRadius: 1.5)
+                            color: Theme.of(context).colorScheme.secondary,
+                            blurRadius: 25,
+                            spreadRadius: 1.5)
                       ]),
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                     const SizedBox(
@@ -185,11 +190,9 @@ class _HomepageState extends State<Homepage> {
                       child: Text(
                         widget.zekr ??
                             "You can add a zekr here from the Azkar page",
-                        style: TextStyle(
-                            fontSize: 17,
-                            color: Theme.of(context)
-                                .scaffoldBackgroundColor
-                                .withAlpha(200)),
+                        style: const TextStyle(
+                          fontSize: 17,
+                        ),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 5,
                       ),
@@ -260,7 +263,7 @@ class _HomepageState extends State<Homepage> {
                       height: MediaQuery.of(context).size.height * 0.4,
                       margin: const EdgeInsets.only(top: 40),
                       decoration: BoxDecoration(
-                          color: const Color(0xffF4A300),
+                          color: Theme.of(context).colorScheme.primaryContainer,
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
@@ -350,7 +353,7 @@ class _HomepageState extends State<Homepage> {
                 height: MediaQuery.of(context).size.height * 0.25,
                 margin: const EdgeInsets.only(top: 40),
                 decoration: BoxDecoration(
-                    color: const Color(0xffF4A300),
+                    color: Theme.of(context).colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(20),
                     boxShadow: [
                       BoxShadow(
@@ -436,7 +439,7 @@ class _HomepageState extends State<Homepage> {
                   height: MediaQuery.of(context).size.height * 0.4,
                   margin: const EdgeInsets.only(top: 40),
                   decoration: BoxDecoration(
-                      color: const Color(0xffF4A300),
+                      color: Theme.of(context).colorScheme.primaryContainer,
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(

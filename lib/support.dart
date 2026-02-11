@@ -27,8 +27,23 @@ class _SupportState extends State<Support> {
         Column(
           children: [
             Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.primary,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.primary,
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
+                      ),
+                    ]),
                 margin: const EdgeInsets.all(10),
                 child: Card(
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -49,10 +64,9 @@ Thank you for your kindness and support:
                                 "Support me on PayPal",
                                 style: TextStyle(
                                     fontSize: 15,
-                                    color: Colors.orange,
-                                    decoration: TextDecoration.underline,
-                                    decorationColor: Colors.orange[600],
-                                    fontWeight: FontWeight.bold),
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                               )),
                         ),
                       ],

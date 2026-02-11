@@ -26,11 +26,26 @@ class _AboutState extends State<About> {
         Column(
           children: [
             Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.primary,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.primary,
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
+                      ),
+                    ]),
                 margin: const EdgeInsets.all(10),
-                child: const Card(
-                    child: Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text("""
+                child: Card(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    child: const Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: Text("""
 About the Developer
           
 I’m a passionate developer who believes that technology can be a powerful tool to enhance spirituality and bring us closer to Allah in a modern way.
@@ -40,14 +55,29 @@ With that vision in mind, I created this app to be your daily companion for Tasb
 I'm always striving to deliver digital experiences that blend benefit with ease, and I welcome any suggestions that help improve and grow this app.
           
 — Abdullah Medhat"""),
-                ))),
+                    ))),
             const SizedBox(
               height: 10,
             ),
             Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.primary,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                      BoxShadow(
+                        color: Theme.of(context).colorScheme.primary,
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
+                      ),
+                    ]),
                 margin: const EdgeInsets.only(
                     top: 15, left: 10, right: 10, bottom: 20),
                 child: Card(
+                  color: Theme.of(context).colorScheme.primaryContainer,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -59,12 +89,13 @@ I'm always striving to deliver digital experiences that blend benefit with ease,
                           padding: const EdgeInsets.all(8.0),
                           child: InkWell(
                               onTap: () => launchURL(repoUrl),
-                              child: const Text("View on GitHub",
+                              child: Text("View on GitHub",
                                   style: TextStyle(
-                                    color: Color(0xFFF4A300),
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  ),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
                                   textAlign: TextAlign.left)),
                         )
                       ],
