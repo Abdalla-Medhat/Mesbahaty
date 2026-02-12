@@ -9,11 +9,10 @@ class AppThemes {
     ).copyWith(
       primary: const Color(0xffF4A300),
       secondary: const Color(0xffF4A300),
-      primaryContainer: const Color(0xff1A2238), // كحلي غامق للكروت
+      primaryContainer: const Color(0xff1A2238),
       surface: const Color(0xff162033),
-
-      onPrimary: const Color(0xff101827), // نص على الزر
-      onPrimaryContainer: const Color(0xffEAEAEA), // نص فاتح
+      onPrimary: const Color(0xff101827),
+      onPrimaryContainer: const Color(0xffEAEAEA),
       onSecondary: const Color(0xff101827),
       onSurface: const Color(0xffEAEAEA),
     ),
@@ -31,56 +30,45 @@ class AppThemes {
   //Green Theme
   static ThemeData greenTheme = ThemeData(
     brightness: Brightness.light,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: const Color(0xFF4CAF50), // أخضر أساسي
-    ).copyWith(
-      // اللون الأساسي
-      primary: const Color(0xFF4CAF50), // أخضر مريح
-      onPrimary: Colors.white, // نص أبيض على الأزرار
-      // const Color(0xFF0B3D1E), // نص أبيض واضح
-
-      // الكونتينرز والكروت
-      primaryContainer: const Color(0xFFE8F5E9), // أخضر فاتح جدًا
-      onPrimaryContainer: const Color(0xFF1B5E20), // أخضر غامق للنص
-
-      // الخلفيات
-      surface: const Color(0xFFF9FFF9), // أبيض مائل للأخضر
-      onSurface: const Color(0xFF1F1F1F),
-
-      background: const Color(0xFFF5FBF6),
-      onBackground: const Color(0xFF1F1F1F),
-
-      // عناصر ثانوية
-      secondary: const Color(0xFF81C784), // أخضر فاتح
-      onSecondary: const Color(0xFF1B5E20),
-
-      // التنبيهات
-      error: const Color(0xFFD32F2F),
-      onError: Colors.white,
+    colorScheme: const ColorScheme.light(
+      primary: Color(0xff0E7C5B),
+      secondary: Color(0xffE6C15A),
+      primaryContainer: Color.fromARGB(255, 255, 244, 215),
+      secondaryContainer: Color(0xffEFE7DC),
+      surface: Color(0xffFAF9F6),
+      onPrimary: Colors.white,
+      onSecondary: Color(0xff1C2B2A),
+      onPrimaryContainer: Color(0xff1C2B2A),
+      onSurface: Color(0xff1C2B2A),
     ),
-    scaffoldBackgroundColor: const Color(0xFFF5FBF6),
+    scaffoldBackgroundColor: const Color(0xffFAF9F6),
+    cardTheme: const CardThemeData(
+      color: Color(0xffF4F1EC),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(18)),
+      ),
+    ),
     appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFF4CAF50),
+      backgroundColor: Color(0xff0E7C5B),
       foregroundColor: Colors.white,
       elevation: 0,
     ),
-    cardTheme: CardThemeData(
-      color: const Color(0xFFE8F5E9),
-      elevation: 4,
-      shadowColor: const Color(0xFF4CAF50).withAlpha(60),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color(0xff0E7C5B),
+        foregroundColor: Colors.white,
+        elevation: 0,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+        ),
       ),
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color(0xFFF9FFF9),
-      selectedItemColor: Color(0xFF4CAF50),
-      unselectedItemColor: Color(0xFF9E9E9E),
-      elevation: 12,
-    ),
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: Color(0xFF4CAF50),
-      foregroundColor: Colors.white,
+      backgroundColor: Color(0xffFAF9F6),
+      selectedItemColor: Color(0xff0E7C5B),
+      unselectedItemColor: Color(0xff9EADA7),
+      elevation: 0,
     ),
   );
 }
