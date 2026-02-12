@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tasabeeh/homepage.dart';
 import 'package:tasabeeh/themes.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key, this.onThemeChanged});
-  final Function(ThemeData)? onThemeChanged;
+  final void Function(ThemeData)? onThemeChanged;
   @override
   State<Settings> createState() => _SettingsState();
 }
@@ -13,23 +12,31 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   int index = 2;
   bool status = false;
+  late SharedPreferences prefs;
+  initialPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  setTheme(String val) {
+    prefs.setString("theme", val);
+  }
 
   Future<void> saveStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool("status", status);
   }
 
   Future<bool> getStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool("status") ?? false;
   }
 
   @override
   void initState() {
     super.initState();
-    getStatus().then((value) {
-      setState(() {
-        status = value;
+    initialPrefs().then((_) {
+      getStatus().then((value) {
+        setState(() {
+          status = value;
+        });
       });
     });
   }
@@ -38,73 +45,89 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     Orientation orientation = MediaQuery.of(context).orientation;
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-            currentIndex: index,
-            unselectedFontSize: 15,
-            backgroundColor: Theme.of(context).colorScheme.surface,
-            selectedItemColor: Theme.of(context).colorScheme.primary,
-            unselectedItemColor:
-                Theme.of(context).colorScheme.onSurface.withAlpha(200),
-            selectedFontSize: 17,
-            iconSize: 27,
-            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            onTap: (value) {
-              setState(() {
-                index = value;
-                if (value == 0) {
-                  Navigator.pushNamed(context, "home");
-                }
-              });
-            },
-            items: [
-              const BottomNavigationBarItem(
-                  icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Padding(
-                    padding: const EdgeInsets.only(top: 13, bottom: 4),
-                    child: GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          index = 1;
-                        });
-                        Navigator.pushNamed(context, "azkar");
-                      },
-                      child: Container(
-                        width: 80,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                blurRadius: 1.3,
-                                offset: const Offset(0, 2),
-                                spreadRadius: -0.10)
-                          ],
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSurface
-                              .withAlpha(200),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Center(
-                            child: Text(
-                          "Azkar",
-                          style: TextStyle(
-                            fontWeight: index == 1
-                                ? FontWeight.bold
-                                : FontWeight.normal,
-                            color: Colors.white,
-                            fontSize: 13,
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).colorScheme.secondary,
+                blurRadius: 7,
+                spreadRadius: 0.5,
+              ),
+              BoxShadow(
+                color: Theme.of(context).colorScheme.secondary,
+                blurRadius: 15,
+                spreadRadius: 2,
+              )
+            ],
+          ),
+          child: BottomNavigationBar(
+              currentIndex: index,
+              unselectedFontSize: 15,
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              selectedItemColor: Theme.of(context).colorScheme.primary,
+              unselectedItemColor:
+                  Theme.of(context).colorScheme.onSurface.withAlpha(200),
+              selectedFontSize: 17,
+              iconSize: 27,
+              selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              onTap: (value) {
+                setState(() {
+                  index = value;
+                  if (value == 0) {
+                    Navigator.pushNamed(context, "home");
+                  }
+                });
+              },
+              items: [
+                const BottomNavigationBarItem(
+                    icon: Icon(Icons.home), label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: Padding(
+                      padding: const EdgeInsets.only(top: 13, bottom: 4),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            index = 1;
+                          });
+                          Navigator.pushNamed(context, "azkar");
+                        },
+                        child: Container(
+                          width: 80,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  blurRadius: 1.3,
+                                  offset: const Offset(0, 2),
+                                  spreadRadius: -0.10)
+                            ],
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withAlpha(200),
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                        )),
+                          child: Center(
+                              child: Text(
+                            "Azkar",
+                            style: TextStyle(
+                              fontWeight: index == 1
+                                  ? FontWeight.bold
+                                  : FontWeight.normal,
+                              color: Colors.white,
+                              fontSize: 13,
+                            ),
+                          )),
+                        ),
                       ),
                     ),
-                  ),
-                  label: ''),
-              const BottomNavigationBarItem(
-                  icon: Icon(Icons.settings), label: 'settings'),
-            ]),
+                    label: ''),
+                const BottomNavigationBarItem(
+                    icon: Icon(Icons.settings), label: 'settings'),
+              ]),
+        ),
         body: orientation == Orientation.portrait
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -239,7 +262,6 @@ class _SettingsState extends State<Settings> {
                                 .withAlpha(76),
                             blurRadius: 25,
                             spreadRadius: -10,
-                            // offset: const Offset(0, 5),
                           ),
                         ]),
                     child: Card(
@@ -251,11 +273,6 @@ class _SettingsState extends State<Settings> {
                         children: [
                           Expanded(
                             child: ListTile(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const Homepage(),
-                                ));
-                              },
                               title: Text(
                                 "Choose theme",
                                 style: TextStyle(
@@ -278,6 +295,7 @@ class _SettingsState extends State<Settings> {
                                   onTap: () {
                                     widget
                                         .onThemeChanged!(AppThemes.greenTheme);
+                                    setTheme("green");
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width *
@@ -305,6 +323,7 @@ class _SettingsState extends State<Settings> {
                                   onTap: () {
                                     widget
                                         .onThemeChanged!(AppThemes.goldenTheme);
+                                    setTheme("golden");
                                   },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width *
@@ -542,7 +561,6 @@ class _SettingsState extends State<Settings> {
                                       .withAlpha(76),
                                   blurRadius: 25,
                                   spreadRadius: -10,
-                                  // offset: const Offset(0, 5),
                                 ),
                               ]),
                           child: Card(
@@ -555,12 +573,6 @@ class _SettingsState extends State<Settings> {
                               children: [
                                 Expanded(
                                   child: ListTile(
-                                    onTap: () {
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                        builder: (context) => const Homepage(),
-                                      ));
-                                    },
                                     title: Text(
                                       "Choose theme",
                                       style: TextStyle(
@@ -583,6 +595,7 @@ class _SettingsState extends State<Settings> {
                                         onTap: () {
                                           widget.onThemeChanged!(
                                               AppThemes.greenTheme);
+                                          setTheme("green");
                                         },
                                         child: Container(
                                           width: MediaQuery.of(context)
@@ -615,6 +628,7 @@ class _SettingsState extends State<Settings> {
                                         onTap: () {
                                           widget.onThemeChanged!(
                                               AppThemes.goldenTheme);
+                                          setTheme("golden");
                                         },
                                         child: Container(
                                           width: MediaQuery.of(context)

@@ -22,10 +22,30 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   ThemeData currentTheme = AppThemes.goldenTheme;
 
-  changeTheme(ThemeData newTheme) {
+  loadTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? theme = prefs.getString("theme");
+    if (theme != null) {
+      if (theme == "golden") {
+        changeTheme(AppThemes.goldenTheme);
+      } else {
+        changeTheme(AppThemes.greenTheme);
+      }
+    } else {
+      currentTheme = AppThemes.goldenTheme;
+    }
+  }
+
+  void changeTheme(ThemeData newTheme) {
     setState(() {
       currentTheme = newTheme;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadTheme();
   }
 
   @override

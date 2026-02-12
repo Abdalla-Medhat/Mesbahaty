@@ -87,73 +87,89 @@ class _ZekrState extends State<Azkar> {
     Orientation orientation = MediaQuery.of(context).orientation;
     return orientation == Orientation.portrait
         ? Scaffold(
-            bottomNavigationBar: BottomNavigationBar(
-                currentIndex: index,
-                unselectedFontSize: 15,
-                backgroundColor: Theme.of(context).colorScheme.surface,
-                selectedItemColor: Theme.of(context).colorScheme.primary,
-                unselectedItemColor:
-                    Theme.of(context).colorScheme.onSurface.withAlpha(200),
-                selectedFontSize: 17,
-                iconSize: 27,
-                selectedLabelStyle:
-                    const TextStyle(fontWeight: FontWeight.bold),
-                onTap: (value) {
-                  setState(() {
-                    index = value;
-                    if (index == 2) {
-                      Navigator.pushNamed(context, "settings");
-                    }
-                    if (index == 0) {
-                      Navigator.pushNamed(context, "home");
-                    }
-                  });
-                },
-                items: [
-                  const BottomNavigationBarItem(
-                      icon: Icon(Icons.home), label: 'Home'),
-                  BottomNavigationBarItem(
-                      icon: Padding(
-                        padding: const EdgeInsets.only(top: 13, bottom: 4),
-                        child: GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              index = 1;
-                            });
-                          },
-                          child: Container(
-                            width: 80,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                    blurRadius: 1.3,
-                                    offset: const Offset(0, 2),
-                                    spreadRadius: -0.10)
-                              ],
-                              color: index == 1 ? primary : Colors.grey[700],
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Center(
-                                child: Text(
-                              "Azkar",
-                              style: TextStyle(
-                                fontWeight: index == 1
-                                    ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: Colors.white,
-                                fontSize: index == 1 ? 15 : 13,
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).colorScheme.secondary,
+                    blurRadius: 7,
+                    spreadRadius: 0.5,
+                  ),
+                  BoxShadow(
+                    color: Theme.of(context).colorScheme.secondary,
+                    blurRadius: 15,
+                    spreadRadius: 2,
+                  )
+                ],
+              ),
+              child: BottomNavigationBar(
+                  currentIndex: index,
+                  unselectedFontSize: 15,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
+                  selectedItemColor: Theme.of(context).colorScheme.primary,
+                  unselectedItemColor:
+                      Theme.of(context).colorScheme.onSurface.withAlpha(200),
+                  selectedFontSize: 17,
+                  iconSize: 27,
+                  selectedLabelStyle:
+                      const TextStyle(fontWeight: FontWeight.bold),
+                  onTap: (value) {
+                    setState(() {
+                      index = value;
+                      if (index == 2) {
+                        Navigator.pushNamed(context, "settings");
+                      }
+                      if (index == 0) {
+                        Navigator.pushNamed(context, "home");
+                      }
+                    });
+                  },
+                  items: [
+                    const BottomNavigationBarItem(
+                        icon: Icon(Icons.home), label: 'Home'),
+                    BottomNavigationBarItem(
+                        icon: Padding(
+                          padding: const EdgeInsets.only(top: 13, bottom: 4),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                index = 1;
+                              });
+                            },
+                            child: Container(
+                              width: 80,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      blurRadius: 1.3,
+                                      offset: const Offset(0, 2),
+                                      spreadRadius: -0.10)
+                                ],
+                                color: index == 1 ? primary : Colors.grey[700],
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                            )),
+                              child: Center(
+                                  child: Text(
+                                "Azkar",
+                                style: TextStyle(
+                                  fontWeight: index == 1
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: Colors.white,
+                                  fontSize: index == 1 ? 15 : 13,
+                                ),
+                              )),
+                            ),
                           ),
                         ),
-                      ),
-                      label: ''),
-                  const BottomNavigationBarItem(
-                      icon: Icon(Icons.settings), label: 'settings'),
-                ]),
+                        label: ''),
+                    const BottomNavigationBarItem(
+                        icon: Icon(Icons.settings), label: 'settings'),
+                  ]),
+            ),
             body: Column(
               children: [
                 Padding(
