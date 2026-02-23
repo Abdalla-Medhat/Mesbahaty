@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tasabeeh/homepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 
 class Azkar extends StatefulWidget {
   const Azkar({super.key});
@@ -81,10 +80,336 @@ class _ZekrState extends State<Azkar> {
 
   setCounter(String val) {}
 
+  void showResponsiveDialog({
+    required int index,
+  }) {
+    final formKey = GlobalKey<FormState>();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        final media = MediaQuery.of(context);
+        final orientation = media.orientation;
+        final width = media.size.width;
+        final height = media.size.height;
+
+        final dialogWidth =
+            orientation == Orientation.portrait ? width * 0.8 : width * 0.7;
+        final dialogHeight =
+            orientation == Orientation.portrait ? height * 0.5 : height * 6;
+        final iconSize = width * 0.15;
+        final iconBoxSize = orientation == Orientation.portrait
+            ? (width * 0.3).clamp(60, 120)
+            : (width * 0.25).clamp(60, 120);
+
+        // النسخة الطولية (Portrait)
+        if (orientation == Orientation.portrait) {
+          return PopScope(
+            canPop: false,
+            child: Dialog(
+              backgroundColor: Colors.transparent,
+              child: Stack(clipBehavior: Clip.none, children: [
+                Container(
+                  width: dialogWidth,
+                  height: dialogHeight,
+                  padding: EdgeInsets.only(top: iconBoxSize / 2),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .primaryContainer
+                        .withAlpha(225),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: Text(
+                            "Set Counter",
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Form(
+                            key: formKey,
+                            child: TextFormField(
+                              //the form is not dismissed
+
+                              cursorColor:
+                                  Theme.of(context).colorScheme.primary,
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold),
+                              controller: setController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Set a number';
+                                } else if (int.tryParse(value) == null) {
+                                  return 'Please Set a number';
+                                } else if (int.parse(value) < 1) {
+                                  return 'Please Set a number more than 0';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Theme.of(context)
+                                    .colorScheme
+                                    .secondaryContainer
+                                    .withAlpha(220),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        width: 10)),
+                                enabled: true,
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withAlpha(200),
+                                        width: 3)),
+                                hintText: "Count",
+                              ),
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                setState(() {
+                                  counterMap[azkar[index]] =
+                                      int.parse(setController.text);
+                                  prefs.setString(
+                                      "counterMap", jsonEncode(counterMap));
+                                });
+                                Navigator.of(context).pop();
+                              }
+                            },
+                            child: Text(
+                              "Save",
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: -iconBoxSize / 2,
+                  right: 0,
+                  left: 0,
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: iconBoxSize.toDouble(),
+                    height: iconBoxSize.toDouble(),
+                    decoration: BoxDecoration(
+                      color:
+                          Theme.of(context).colorScheme.primary.withAlpha(200),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.info,
+                      size: iconSize,
+                      color: Theme.of(context).colorScheme.onPrimary,
+                    ),
+                  ),
+                ),
+              ]),
+            ),
+          );
+        }
+
+        // النسخة العرضية (Landscape) مع scroll كامل للـ Dialog
+        return PopScope(
+          canPop: false,
+          child: Dialog(
+            backgroundColor: Colors.transparent,
+            child: SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                    maxHeight: MediaQuery.of(context).size.height * 0.8),
+                child: Stack(clipBehavior: Clip.none, children: [
+                  Container(
+                    width: dialogWidth,
+                    padding: EdgeInsets.only(top: iconBoxSize / 2),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context)
+                          .colorScheme
+                          .primaryContainer
+                          .withAlpha(225),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: Text(
+                            "Set Counter",
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Form(
+                            key: formKey,
+                            child: TextFormField(
+                              cursorColor:
+                                  Theme.of(context).colorScheme.primary,
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold),
+                              controller: setController,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Set a number';
+                                } else if (int.tryParse(value) == null) {
+                                  return 'Please Set a number';
+                                } else if (int.parse(value) < 1) {
+                                  return 'Please Set a number more than 0';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Theme.of(context)
+                                    .colorScheme
+                                    .secondaryContainer
+                                    .withAlpha(220),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                        width: 10)),
+                                enabled: true,
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary
+                                            .withAlpha(200),
+                                        width: 3)),
+                                hintText: "Count",
+                              ),
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                setState(() {
+                                  counterMap[azkar[index]] =
+                                      int.parse(setController.text);
+                                  prefs.setString(
+                                      "counterMap", jsonEncode(counterMap));
+                                });
+                                Navigator.of(context).pop();
+                              }
+                            },
+                            child: Text(
+                              "Save",
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.onPrimary,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18),
+                            ),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: -iconBoxSize / 2,
+                    right: 0,
+                    left: 0,
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 10),
+                      alignment: Alignment.center,
+                      width: iconBoxSize.toDouble(),
+                      height: iconBoxSize.toDouble(),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withAlpha(200),
+                        shape: BoxShape.circle,
+                      ),
+                      child: Icon(
+                        Icons.info,
+                        size: iconSize,
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Color primary = Theme.of(context).colorScheme.primary;
-    Orientation orientation = MediaQuery.of(context).orientation;
     return orientation == Orientation.portrait
         ? Scaffold(
             bottomNavigationBar: Container(
@@ -391,165 +716,10 @@ class _ZekrState extends State<Azkar> {
                                                   setController.text =
                                                       counterMap[azkar[index]]
                                                           .toString();
-                                                  AwesomeDialog(
-                                                    context: context,
-                                                    dialogBackgroundColor:
-                                                        Theme.of(context)
-                                                            .colorScheme
-                                                            .secondary
-                                                            .withAlpha(220),
-                                                    customHeader: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.5,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.5,
-                                                      decoration: BoxDecoration(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .secondary,
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: FittedBox(
-                                                        fit: BoxFit.scaleDown,
-                                                        child: Icon(
-                                                          Icons.info,
-                                                          size: 150,
-                                                          color:
-                                                              Theme.of(context)
-                                                                  .colorScheme
-                                                                  .onPrimary,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    isDense: false,
-                                                    body: Column(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Text(
-                                                              "Set Counter",
-                                                              style: TextStyle(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .colorScheme
-                                                                      .onPrimary,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      20)),
-                                                        ),
-                                                        Row(
-                                                          children: [
-                                                            Icon(
-                                                                Icons.edit_note,
-                                                                size: 40,
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .colorScheme
-                                                                    .secondaryContainer),
-                                                            SizedBox(
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.6,
-                                                              child: Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .only(
-                                                                        left:
-                                                                            10),
-                                                                child: Form(
-                                                                  key: formKey,
-                                                                  child:
-                                                                      TextFormField(
-                                                                    controller:
-                                                                        setController,
-                                                                    validator:
-                                                                        (value) {
-                                                                      if (value ==
-                                                                              null ||
-                                                                          value
-                                                                              .isEmpty) {
-                                                                        return 'Please Set a number';
-                                                                      } else if (int.tryParse(
-                                                                              value) ==
-                                                                          null) {
-                                                                        return 'Please Set a number';
-                                                                      } else if (int.tryParse(
-                                                                              value)! <
-                                                                          1) {
-                                                                        return 'Please Set a number more than 0';
-                                                                      } else {
-                                                                        return null;
-                                                                      }
-                                                                    },
-                                                                    decoration:
-                                                                        InputDecoration(
-                                                                      filled:
-                                                                          true,
-                                                                      fillColor: Theme.of(
-                                                                              context)
-                                                                          .colorScheme
-                                                                          .secondaryContainer
-                                                                          .withAlpha(
-                                                                              220),
-                                                                      enabledBorder:
-                                                                          const OutlineInputBorder(
-                                                                              borderSide: BorderSide.none),
-                                                                      border: OutlineInputBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(10)),
-                                                                      hintText:
-                                                                          "Count",
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    btnOkText: "Save",
-                                                    buttonsTextStyle: TextStyle(
-                                                      color: primary,
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 18,
-                                                    ),
-                                                    btnOkColor:
-                                                        Theme.of(context)
-                                                            .colorScheme
-                                                            .secondaryContainer,
-                                                    btnOkOnPress: () {
-                                                      if (formKey.currentState!
-                                                          .validate()) {
-                                                        setState(() {
-                                                          counterMap[azkar[
-                                                                  index]] =
-                                                              int.parse(
-                                                                  setController
-                                                                      .text);
-                                                          prefs.setString(
-                                                              "counterMap",
-                                                              jsonEncode(
-                                                                  counterMap));
-                                                        });
-                                                      }
-                                                    },
-                                                  ).show();
+
+                                                  showResponsiveDialog(
+                                                    index: index,
+                                                  );
                                                 },
                                                 child: const FittedBox(
                                                     child: Text("Set")),
@@ -896,180 +1066,9 @@ class _ZekrState extends State<Azkar> {
                                                 setController.text =
                                                     counterMap[azkar[index]]
                                                         .toString();
-
-                                                AwesomeDialog(
-                                                  context: context,
-                                                  dialogBackgroundColor:
-                                                      Theme.of(context)
-                                                          .colorScheme
-                                                          .secondary
-                                                          .withAlpha(220),
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.8,
-                                                  title: 'Set Counter',
-                                                  titleTextStyle: TextStyle(
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .secondary,
-                                                  ),
-                                                  customHeader: Container(
-                                                    alignment: Alignment.center,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .shortestSide *
-                                                            0.5,
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .shortestSide *
-                                                            0.5,
-                                                    decoration: BoxDecoration(
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .secondary,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              70),
-                                                    ),
-                                                    child: FittedBox(
-                                                      fit: BoxFit.scaleDown,
-                                                      child: Icon(
-                                                        Icons.info,
-                                                        size: 300,
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .onPrimary,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  body: Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Text(
-                                                          "Set Counter",
-                                                          style: TextStyle(
-                                                              fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .onPrimary),
-                                                        ),
-                                                      ),
-                                                      Row(
-                                                        children: [
-                                                          Icon(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .colorScheme
-                                                                  .secondaryContainer,
-                                                              Icons.edit_note,
-                                                              size: 40),
-                                                          Form(
-                                                            key: formKey,
-                                                            child: SizedBox(
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  0.6,
-                                                              child:
-                                                                  TextFormField(
-                                                                style: TextStyle(
-                                                                    fontSize:
-                                                                        18,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
-                                                                    color:
-                                                                        primary),
-                                                                controller:
-                                                                    setController,
-                                                                validator:
-                                                                    (value) {
-                                                                  if (value ==
-                                                                          null ||
-                                                                      value
-                                                                          .isEmpty) {
-                                                                    return 'Please Set a number';
-                                                                  } else if (int
-                                                                          .tryParse(
-                                                                              value) ==
-                                                                      null) {
-                                                                    return 'Please Set a number';
-                                                                  } else if (int
-                                                                          .tryParse(
-                                                                              value)! <
-                                                                      1) {
-                                                                    return 'Please Set a number more than 0';
-                                                                  } else {
-                                                                    return null;
-                                                                  }
-                                                                },
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  filled: true,
-                                                                  fillColor: Theme.of(
-                                                                          context)
-                                                                      .colorScheme
-                                                                      .secondaryContainer
-                                                                      .withAlpha(
-                                                                          220),
-                                                                  enabledBorder:
-                                                                      const OutlineInputBorder(
-                                                                          borderSide:
-                                                                              BorderSide.none),
-                                                                  border: OutlineInputBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10)),
-                                                                  hintText:
-                                                                      "Count",
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  btnOkText: "Save",
-                                                  buttonsTextStyle: TextStyle(
-                                                    color: primary,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 18,
-                                                  ),
-                                                  btnOkColor: Theme.of(context)
-                                                      .colorScheme
-                                                      .secondaryContainer
-                                                      .withAlpha(220),
-                                                  btnOkOnPress: () {
-                                                    if (formKey.currentState!
-                                                        .validate()) {
-                                                      setState(() {
-                                                        counterMap[
-                                                                azkar[index]] =
-                                                            int.parse(
-                                                                setController
-                                                                    .text);
-                                                        prefs.setString(
-                                                            "counterMap",
-                                                            jsonEncode(
-                                                                counterMap));
-                                                      });
-                                                    }
-                                                  },
-                                                ).show();
+                                                showResponsiveDialog(
+                                                  index: index,
+                                                );
                                               },
                                               child: const Text("Set"),
                                             ),
