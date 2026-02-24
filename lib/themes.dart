@@ -41,7 +41,7 @@ class AppThemes {
       onPrimaryContainer: Color(0xff1C2B2A),
       onSurface: Color(0xff1C2B2A),
     ),
-    scaffoldBackgroundColor: const Color(0xffFAF9F6),
+    scaffoldBackgroundColor: const Color.fromARGB(255, 255, 236, 182),
     cardTheme: const CardThemeData(
       color: Color(0xffF4F1EC),
       elevation: 0,
