@@ -1,0 +1,13 @@
+flutter_native_splash:
+  color: "#090D16"
+  color_web: "#090D16"
+  image: assets/images/Mesbahaty_icon.png
+  fullscreen: true
+  android: true
+  web: true
+  ios: true
+  # ANDROID 12+ configuration:
+  android_12:
+    # background color
+    color: "#090D16"
+    image: assets/images/mesbahaty_splash_screen_icon.png
