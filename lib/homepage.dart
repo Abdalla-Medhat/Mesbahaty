@@ -181,6 +181,8 @@ class _HomepageState extends State<Homepage> {
     if (clickablePage == true) {
       if (orientation == Orientation.portrait) {
         return GestureDetector(
+          //This line is to make the widgets without a child, like Spacer, clickable.
+          behavior: HitTestBehavior.opaque,
           onTap: () {
             incrementCount();
           },
@@ -287,6 +289,8 @@ class _HomepageState extends State<Homepage> {
         );
       } else {
         return GestureDetector(
+            //This line is to make the widgets without a child, like Spacer, clickable.
+            behavior: HitTestBehavior.opaque,
             onTap: () {
               incrementCount();
             },
