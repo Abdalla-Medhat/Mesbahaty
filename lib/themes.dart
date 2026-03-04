@@ -19,7 +19,9 @@ class AppThemes {
     scaffoldBackgroundColor: const Color(0XFF101827),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        shape: const CircleBorder(),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(16)),
+        ),
         backgroundColor: const Color(0xffF4A300),
         foregroundColor: const Color(0xff101827),
         elevation: 0,
