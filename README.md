@@ -23,14 +23,25 @@ Data is saved even after closing the app using `SharedPreferences`.
 ## 🖼️ Screenshots of the App
 
 <p align="center">
-  <!-- Add the first image here -->
-  <img src="assets/images/Mesbahaty icon.png" alt="Tasbih Counter" width="250" height = "500"/>
+  <img src="assets/images/Mesbahaty_icon.png" alt="Mesbahaty Icon" width="250"/>
   &nbsp;&nbsp;
-  <!-- Add the second image here -->
-  <img src="assets/images/Mesbahaty home page.png" alt="App Interface" width="250" height = "500"/>
+  <img src="https://drive.google.com/uc?export=view&id=1GLWgu_P7mc3TTS5RFJZ1tnthRtHKV8GQ" alt="Orange Home Page" width="250"/>
   &nbsp;&nbsp;
-  <!-- Add the third image here -->
-  <img src="assets/images/Mesbahaty add Zekr page.png" alt="App Interface" width="250" height = "500"/>
+  <img src="https://drive.google.com/uc?export=view&id=1oKAK4x1rZqlfifonjquFXxJzQrtxEAGW" alt="Green Home Page" width="250"/>
+  &nbsp;&nbsp;
+  <img src="https://drive.google.com/uc?export=view&id=1mM-zHPPhE8EtonN08nyOhiDovFNTJIVv" alt="Add Zekr Page" width="250"/>
+  &nbsp;&nbsp;
+  <img src="https://drive.google.com/uc?export=view&id=1xOz-GJynyUxJZVC3LKBV_8Lhq9KVfcUJ" alt="Settings Page" width="250"/>
+</p>
+
+---
+
+## 🎥 App Demo Video
+
+<p align="center">
+  <a href="https://drive.google.com/file/d/1Gg2ufhZUH-ls2bJh1a_5a5T3_xB6zQ5s/view">
+    <img src="https://img.shields.io/badge/▶️ Watch Demo Video-Click Here-blue?style=for-the-badge" />
+  </a>
 </p>
 
 ---
