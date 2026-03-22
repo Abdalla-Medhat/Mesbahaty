@@ -18,6 +18,9 @@ A comfortable, easy-to-use design without any complexity.
 ✅ **Automatic Data Saving**:
 Data is saved even after closing the app using `SharedPreferences`.
 
+✅ **Custom Themes (Orange & Green)**:
+Personalize your experience by switching between two visually appealing themes — a warm Orange theme and a calming Green theme.
+
 ---
 
 ## 🖼️ Screenshots of the App
